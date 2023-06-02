@@ -1,0 +1,16 @@
+1.indroduction
+	1.1 problem statement
+	1.2 Objectives
+2.Literture Survey
+3.Requirement Specification
+	3.1 Functional
+	3.2 Non Functional
+4.System Design
+	4.1 System Architechture
+	4.2 DFD
+	4.3 ER diagram
+	4.4 UML
+5.Future Work
+6.Conclusion 
+
+References //No need to add in index
