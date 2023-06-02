@@ -88,7 +88,21 @@ Card menuCard(String text,String page,BuildContext context) {
   );
 }
 
-AppBar buildAppBar(String text,bool flag,BuildContext context) {
+AppBar buildAppBar1(String text) {
+  return AppBar(
+      title: Text(
+        text,
+        style: const TextStyle(
+          letterSpacing: 1.25 ,
+        ),
+      ),
+      centerTitle: true,
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+  );
+}
+
+AppBar buildAppBar2(String text,BuildContext context) {
   return AppBar(
     title: Text(
       text,
@@ -99,26 +113,22 @@ AppBar buildAppBar(String text,bool flag,BuildContext context) {
     centerTitle: true,
     elevation: 0,
     backgroundColor: Colors.transparent,
-    leading: flag ? leadingIcon(context) : null
-  );
-} // Default app Bar propertires
-
-Material leadingIcon(BuildContext context) {
-  return Material(
-    shape: const CircleBorder(),
-    color: Colors.black54,
-    child: InkWell(
-      onTap: () {
+    leading: Material(
+      shape: const CircleBorder(),
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () {
           Navigator.pushNamed(context, "/menu");
-      },
-      child: const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Icon(
-          Icons.list_rounded,
-          color: Colors.white,
-          size: 40,
+        },
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Icon(
+            Icons.list_rounded,
+            color: Colors.white,
+            size: 40,
+          ),
         ),
       ),
-    ),
+    )
   );
-}
+} // Default app Bar propertires

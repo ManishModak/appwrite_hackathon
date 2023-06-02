@@ -28,7 +28,7 @@ class ManualEntryPage extends StatelessWidget {
                     gradient: appBarGradient
                   ),
                 ),
-                buildAppBar("Manual Entry",true,context),
+                buildAppBar2("Manual Entry",context),
               ],
             ),
           ),

@@ -97,7 +97,7 @@ class _NewStudentState extends State<NewStudent> {
                   gradient: appBarGradient,
                 ),
               ),
-              buildAppBar("New Hostilite", false, context),
+              buildAppBar("New Hostilite",false,context)
             ],
           ),
         ),

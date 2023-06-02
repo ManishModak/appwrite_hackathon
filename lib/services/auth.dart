@@ -1,11 +1,7 @@
-// import 'package:mat_security/services/admin.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:appwrite/appwrite.dart';
 
 class AuthService {
-
-  //final FirebaseAuth _auth = FirebaseAuth.instance ;
 
   late Account account ;
   late Databases databases;

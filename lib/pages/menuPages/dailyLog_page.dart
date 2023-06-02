@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../common/constants.dart';
 
+
 class DailyLog extends StatefulWidget {
   const DailyLog({Key? key}) : super(key: key);
 
@@ -44,7 +45,7 @@ class _DailyLogState extends State<DailyLog> {
                   gradient: appBarGradient,
                 ),
               ),
-              buildAppBar("Daily Log", false, context),
+              buildAppBar("Daily Log",false,context)
             ],
           ),
         ),
