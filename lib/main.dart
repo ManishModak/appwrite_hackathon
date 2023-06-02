@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mat_security/pages/authenticationPages//login_page.dart';
 import 'package:mat_security/pages/menuPages//manualEntry_page.dart';
+import 'package:mat_security/pages/menuPages/newAdmin_page.dart';
 import 'package:mat_security/pages/menu_page.dart';
 import 'package:mat_security/pages/menuPages/newStudent_page.dart';
 import 'package:mat_security/pages/menuPages/dailyLog_page.dart';
@@ -22,14 +23,14 @@ void main() async {
     ),
     themeMode: ThemeMode.system,
 
-    initialRoute: '/login', // Set the initial route to '/login'
+    initialRoute: '/entry', // Set the initial route to '/login'
     routes: {
-
+      '/newAdmin':(context) => const NewAdmin(),
       '/login': (context) => const Login(), // Route for the login page
       '/menu': (context) => const Menu(), // Route for the menu page
       '/newStudent': (context) => const NewStudent(), //Route for the New Hostelite page
       '/log':(context) => const DailyLog(),
-      '/entry':(context) => const ManualEntryPage()
+      '/entry':(context) => const ManualEntry()
     },
   ));
 }
