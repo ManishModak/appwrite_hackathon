@@ -6,8 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mat_security/services/main_database.dart';
-
-import '../../common/constants.dart';
+import 'package:mat_security/common/constants.dart';
+import 'dart:io';
 
 class NewStudent extends StatefulWidget {
   const NewStudent({Key? key}) : super(key: key);

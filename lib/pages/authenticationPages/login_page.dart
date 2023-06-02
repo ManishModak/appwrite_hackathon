@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mat_security/common/constants.dart';
 import 'package:mat_security/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../common/loading_page.dart';
+import 'package:mat_security/common/loading_page.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -181,8 +181,8 @@ class _LoginState extends State<Login> {
                     style: const TextStyle(color: Colors.red, fontSize: 14.0),
                   ),
                   const SizedBox(height: 40.0),
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Expanded(child: Divider(thickness: 1,color: Colors.redAccent,)),
                       SizedBox(width: 10,),
                       Text("Or Continue With",style: TextStyle(fontSize: 15,color: Colors.white),),
