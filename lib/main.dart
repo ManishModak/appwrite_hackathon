@@ -6,11 +6,14 @@ import 'package:mat_security/pages/menu_pages/manual_entry_page.dart';
 import 'package:mat_security/pages/menu_page.dart';
 import 'package:mat_security/pages/menu_pages/new_hostelite_page.dart';
 import 'package:mat_security/pages/menu_pages/daily_log_page.dart';
+import 'package:mat_security/services/main_database.dart';
 
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  MainDatabase stu = MainDatabase();
+  stu.addStudent(id: 'T21052', name: 'Aman Munjewar', room: '221', branch: 'IT', mobile: '9667745645', url: '');
 
   runApp(MaterialApp(
 

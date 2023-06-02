@@ -1,71 +1,74 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:appwrite/appwrite.dart';
 
 class MainDatabase {
+  final Client _client = Client();
+  late final Databases _database = Databases(_client);
+  String dID = '647a0fa72e02c1bdcc70';
 
-  final FirebaseFirestore _fire = FirebaseFirestore.instance;
-
-  /*
-  How to use example
-  MainDatabase Student = MainDatabase();
-  Student.addStudent(id:"1101", name:"aman", room:"103", branch:"IT", mobile:"9756547687");
-  */
-  Future<void> addStudent({required String id,required String name,required String room,
-                            required String branch,required String mobile, required String url}) async {
-    Map<String, dynamic> stdData = {
-      "id": id,
-      "name": name,
-      "roomNo": room,
-      "branch": branch,
-      "mobileNo":mobile,
-      "imageUrl":url
-    };
-    await _fire.collection("users").doc(stdData['id']).set(stdData);
+  MainDatabase() {
+    _client
+        .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
+        .setProject('6479bcbb10618eda232a'); // Replace with your Appwrite project ID
   }
 
-  /*
-  How to use example
-  MainDatabase Student = MainDatabase();
-  Map<String, dynamic> data;
-  data = await Student.getInfo(id: "1101");
-  if(kDebugMode){
-    print(data);
-  }*/
+  Future<void> addStudent({
+    required String id,
+    required String name,
+    required String room,
+    required String branch,
+    required String mobile,
+    required String url,
+  }) async {
+    final document = await _database.createDocument(
+      collectionId: 'users',
+      databaseId: dID,
+      documentId: ID.unique(),
+      data: {
+        'id': id,
+        'name': name,
+        'roomNo': room,
+        'branch': branch,
+        'mobileNo': mobile,
+        'imageUrl': url,
+      },
+    );
+  }
+
   Future<Map<String, dynamic>> getInfo({required String id}) async {
-
-  DocumentSnapshot snap = await _fire.collection("users").doc(id).get();
-  Map<String, dynamic> data = snap.data() as Map<String, dynamic>;
-  return data;
+    final document = await _database.getDocument(
+      collectionId: 'users',
+      documentId: id,
+      databaseId: dID,
+    );
+    Map<String, dynamic> data = document.data;
+    return data;
   }
 
-  /*
-  How to use example
-  MainDatabase student = MainDatabase();
-  student.updateRoom(id: "1101", newRoom: "330");
-   */
-  Future<void> updateRoom({required String id, required String room}) async{
-    await _fire.collection("users").doc(id).update({
-      "roomNo": room
-    });
+  Future<void> updateRoom({required String id, required String room}) async {
+    final document = await _database.updateDocument(
+      collectionId: 'users',
+      documentId: id,
+      databaseId: dID,
+      data: {'roomNo': room},
+    );
   }
 
-  /*
-  How to use example
-  MainDatabase student = MainDatabase();
-  student.updateBranch(id: "1101", branch: "CS");
-   */
-  Future<void> updateBranch({required String id, required String branch}) async{
-    await _fire.collection("users").doc(id).update({
-      "branch": branch
-    });
+  Future<void> updateBranch({required String id, required String branch}) async {
+    final document = await _database.updateDocument(
+      databaseId: dID,
+      collectionId: 'users',
+      documentId: id,
+      data: {'branch': branch},
+    );
   }
 
-  /*
-  How to use example
-  MainDatabase student = MainDatabase();
-  student.deleteStudent(id: "1102");
-   */
-  Future<void> deleteStudent({required String id}) async{
-    await _fire.collection("users").doc(id).delete();
+  Future<void> deleteStudent({required String id}) async {
+    final document = await _database.deleteDocument(
+      databaseId: dID,
+      collectionId: 'users',
+      documentId: id,
+    );
   }
-
 }
+
+

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mat_security/common/constants.dart';
+import 'package:mat_security/services/log_database.dart';
 
 class ManualEntryPage extends StatelessWidget {
   const ManualEntryPage({Key? key}) : super(key: key);
 
+  void logStudent(String id){
+    LogDatabase log = LogDatabase();
+    log.addLog(id: id);
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    final GlobalKey<FormState> _formkey = GlobalKey<FormState>() ;
+    final GlobalKey<FormState> formkey = GlobalKey<FormState>() ;
 
     final TextEditingController id = TextEditingController() ;
 
@@ -29,7 +35,7 @@ class ManualEntryPage extends StatelessWidget {
           body: Container(
             padding: const EdgeInsets.all(15),
             child: Form(
-              key: _formkey,
+              key: formkey,
               child:Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -55,8 +61,9 @@ class ManualEntryPage extends StatelessWidget {
                     ),
                     child: ElevatedButton(
                       onPressed: () async{
-                        if(_formkey.currentState!.validate()) {
-                          // Insert Function here
+                        if(formkey.currentState!.validate()) {
+                          logStudent(id.text);
+                          id.dispose();
                         }
                       },
                       style: ElevatedButton.styleFrom(

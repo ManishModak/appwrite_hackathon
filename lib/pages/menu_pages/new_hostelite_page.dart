@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +17,7 @@ class NewStudent extends StatefulWidget {
 }
 
 class _NewStudentState extends State<NewStudent> {
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>() ;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late TextEditingController id = TextEditingController();
   final TextEditingController name = TextEditingController();
@@ -27,46 +26,50 @@ class _NewStudentState extends State<NewStudent> {
   final TextEditingController mobileNo = TextEditingController();
 
   File? studentPic;
-  double percentage=0;
+  double percentage = 0;
 
-@override
-void dispose() {
-  super.dispose();
-  id.dispose();
-  name.dispose();
-  roomNo.dispose();
-  branch.dispose();
-  mobileNo.dispose();
-}
+  @override
+  void dispose() {
+    super.dispose();
+    id.dispose();
+    name.dispose();
+    roomNo.dispose();
+    branch.dispose();
+    mobileNo.dispose();
+  }
 
-void _submitForm() async{
-
-  if(_formKey.currentState!.validate()) {
-
+  void _submitForm() async {
+    if (_formKey.currentState!.validate()) {
       MainDatabase student = MainDatabase();
+      final client = Client().setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
+          .setProject('6479bcbb10618eda232a'); // Replace with your Appwrite project ID
+      final storage = Storage(client);
 
-      UploadTask uploadTask = FirebaseStorage.instance.ref().child("pictures").child(id.text).child(id.text).putFile(studentPic!);
+      final storageFile = await storage.createFile(
+        file: InputFile.fromPath(
+          path: studentPic!.path,
+          filename: '${id.text}.jpg',
+          contentType: 'image/jpeg',
+        ), bucketId: '647a27faaae8cd0f36c4', fileId: '$id'
+      );
+      final fileId = storageFile.$id; // Use the file ID returned from createFile
 
-      uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
-        setState(() {
-          percentage = (snapshot.bytesTransferred/snapshot.totalBytes);
-        });
-      });
-      TaskSnapshot taskSnapshot = await uploadTask;
-      String downloadUrl =  await taskSnapshot.ref.getDownloadURL();
+      final previewUrl = await storage.getFilePreview(fileId: fileId, bucketId: '647a27faaae8cd0f36c4');
+
+      String downloadUrl = previewUrl as String;
 
       student.addStudent(
-          id: id.text ,
-          name: name.text,
-          room: roomNo.text,
-          branch: branch.text,
-          mobile: mobileNo.text,
-          url: downloadUrl
+        id: id.text,
+        name: name.text,
+        room: roomNo.text,
+        branch: branch.text,
+        mobile: mobileNo.text,
+        url: downloadUrl,
       );
 
       setState(() {
         percentage = 0;
-        studentPic = null ;
+        studentPic = null;
       });
 
       id.clear();
@@ -78,11 +81,11 @@ void _submitForm() async{
       Future.delayed(Duration.zero, () {
         _formKey.currentState!.reset();
       });
+    }
   }
-}
 
-@override
-Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
@@ -91,16 +94,16 @@ Widget build(BuildContext context) {
             children: [
               Container(
                 decoration: const BoxDecoration(
-                  gradient: appBarGradient
+                  gradient: appBarGradient,
                 ),
               ),
-              buildAppBar("New Hostilite",false,context)
+              buildAppBar("New Hostilite", false, context),
             ],
           ),
         ),
         body: SingleChildScrollView(
           child: Container(
-            padding:const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
             child: Form(
               key: _formKey,
               child: Column(
@@ -121,16 +124,18 @@ Widget build(BuildContext context) {
                         ),
                         CupertinoButton(
                           onPressed: () async {
-                            percentage = 0;
-                            XFile? selectedImage = await ImagePicker().pickImage(source: ImageSource.camera);
+                            setState(() {
+                              percentage = 0;
+                            });
 
-                            if(selectedImage != null){
+                            final selectedImage = await ImagePicker().pickImage(source: ImageSource.camera);
+
+                            if (selectedImage != null) {
                               File convertedImage = File(selectedImage.path);
                               setState(() {
                                 studentPic = convertedImage;
                               });
-                            }
-                            else{
+                            } else {
                               if (kDebugMode) {
                                 print("Image not selected");
                               }
@@ -142,57 +147,42 @@ Widget build(BuildContext context) {
                             backgroundColor: Colors.grey,
                           ),
                         ),
-                      ]
+                      ],
                     ),
                   ),
                   const Divider(
                     height: 40.0,
                   ),
                   TextFormField(
-                    style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20
-                    ),
+                    style: const TextStyle(color: Colors.grey, fontSize: 20),
                     decoration: textInputDecoration.copyWith(hintText: "ID"),
                     validator: (val) => val == null || val.isEmpty ? "Enter ID" : null,
                     controller: id,
                   ),
                   const SizedBox(height: 20.0),
                   TextFormField(
-                    style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20
-                    ),
+                    style: const TextStyle(color: Colors.grey, fontSize: 20),
                     decoration: textInputDecoration.copyWith(hintText: "Name"),
                     validator: (val) => val == null || val.isEmpty ? "Enter Name" : null,
                     controller: name,
                   ),
                   const SizedBox(height: 20.0),
                   TextFormField(
-                    style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20
-                    ),
+                    style: const TextStyle(color: Colors.grey, fontSize: 20),
                     decoration: textInputDecoration.copyWith(hintText: "Room No"),
                     validator: (val) => val == null || val.isEmpty ? "Enter Room No" : null,
                     controller: roomNo,
                   ),
                   const SizedBox(height: 20.0),
                   TextFormField(
-                    style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20
-                    ),
+                    style: const TextStyle(color: Colors.grey, fontSize: 20),
                     decoration: textInputDecoration.copyWith(hintText: "Branch"),
                     validator: (val) => val == null || val.isEmpty ? "Enter Branch" : null,
                     controller: branch,
                   ),
                   const SizedBox(height: 20.0),
                   TextFormField(
-                    style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20
-                    ),
+                    style: const TextStyle(color: Colors.grey, fontSize: 20),
                     decoration: textInputDecoration.copyWith(hintText: "Mobile No"),
                     validator: (val) => val == null || val.isEmpty ? "Enter Mobile No" : null,
                     controller: mobileNo,
@@ -203,13 +193,13 @@ Widget build(BuildContext context) {
                     height: 55,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      gradient: buttonLinearGradient_1
+                      gradient: buttonLinearGradient_1,
                     ),
                     child: ElevatedButton(
-                      onPressed: _submitForm ,
+                      onPressed: _submitForm,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
-                        elevation: 0
+                        elevation: 0,
                       ),
                       child: const Text(
                         "Submit",
@@ -217,7 +207,7 @@ Widget build(BuildContext context) {
                           fontSize: 23,
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
-                          letterSpacing: 1.5
+                          letterSpacing: 1.5,
                         ),
                       ),
                     ),
@@ -226,7 +216,7 @@ Widget build(BuildContext context) {
               ),
             ),
           ),
-        )
+        ),
       ),
     );
   }
