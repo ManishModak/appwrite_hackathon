@@ -1,16 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:mat_security/common/constants.dart';
 
-class NewAdmin extends StatelessWidget {
+class NewAdmin extends StatefulWidget {
   const NewAdmin({super.key});
 
   @override
+  State<NewAdmin> createState() => _NewAdminState();
+}
+
+class _NewAdminState extends State<NewAdmin> {
+
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>() ;
+
+  final TextEditingController email = TextEditingController() ;
+
+  void submitButton () async{
+
+    if(formkey.currentState!.validate()) {
+
+      setState(() {
+        email.clear() ;
+      });
+
+    }
+  }
+
+  @override
+  void dispose() {
+    email.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-
-    final GlobalKey<FormState> formkey = GlobalKey<FormState>() ;
-
-    final TextEditingController email = TextEditingController() ;
-
     return SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
@@ -54,11 +76,7 @@ class NewAdmin extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10)
                       ),
                       child: ElevatedButton(
-                        onPressed: () async{
-                          if(formkey.currentState!.validate()) {
-                            // Insert Function here
-                          }
-                        },
+                        onPressed: submitButton,
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             elevation: 0
@@ -82,4 +100,5 @@ class NewAdmin extends StatelessWidget {
     );
   }
 }
+
 
