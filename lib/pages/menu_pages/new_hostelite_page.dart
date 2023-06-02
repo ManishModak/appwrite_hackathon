@@ -94,7 +94,7 @@ Widget build(BuildContext context) {
                   gradient: appBarGradient
                 ),
               ),
-              buildAppBar("New Hostilite")
+              buildAppBar("New Hostilite",false,context)
             ],
           ),
         ),
@@ -203,7 +203,7 @@ Widget build(BuildContext context) {
                     height: 55,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      gradient: buttonLinearGradient
+                      gradient: buttonLinearGradient_1
                     ),
                     child: ElevatedButton(
                       onPressed: _submitForm ,

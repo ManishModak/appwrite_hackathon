@@ -22,7 +22,7 @@ class ManualEntryPage extends StatelessWidget {
                     gradient: appBarGradient
                   ),
                 ),
-                buildAppBar("Manual Entry"),
+                buildAppBar("Manual Entry",true,context),
               ],
             ),
           ),
@@ -50,7 +50,7 @@ class ManualEntryPage extends StatelessWidget {
                     width: 180,
                     height: 55,
                     decoration: BoxDecoration(
-                      gradient: buttonLinearGradient,
+                      gradient: buttonLinearGradient_1,
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: ElevatedButton(

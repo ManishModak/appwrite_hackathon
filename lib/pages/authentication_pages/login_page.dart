@@ -40,7 +40,7 @@ class _LoginState extends State<Login> {
   }
 
   void nextPage() {
-    Navigator.pushReplacementNamed(context, "/home") ;
+    Navigator.pushReplacementNamed(context, "/entry") ;
   }
 
   @override
@@ -92,7 +92,7 @@ class _LoginState extends State<Login> {
                     ),
                     obscureText: true,
                     decoration: textInputDecoration.copyWith(hintText: "Password"),
-                    validator: (val) => val == null || val.length < 6 ? "Enter a password 6+ characters long" : null,
+                    validator: (val) => val == null || val.length < 8 ? "Enter a password 8+ characters long" : null,
                     controller: password,
                   ),
                   const SizedBox(height: 30.0),
@@ -100,7 +100,7 @@ class _LoginState extends State<Login> {
                     height: 50,
                     width: 400,
                     decoration: BoxDecoration(
-                      gradient: buttonLinearGradient,
+                      gradient: buttonLinearGradient_1,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: ElevatedButton(
@@ -136,16 +136,56 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   const SizedBox(height: 15),
+                  Container(
+                    height: 50,
+                    width: 400,
+                    decoration: BoxDecoration(
+                      gradient: buttonLinearGradient_2,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          elevation: 0
+                      ),
+                      child: const Text(
+                        'SIGN UP',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            letterSpacing: 1.25,
+                            fontWeight: FontWeight.w400
+                        ),
+                      ),
+                      onPressed: () async{
+                        if(_formKey.currentState!.validate()){
+                          setState(() => loading = true);
+                          dynamic result = await _auth.registerWithEmailAndPassword(email.text.trim(), password.text);
+                          if(result == null){
+                            setState(() {
+                              loading = false ;
+                              error = 'Could not sign up with those credentials' ;
+                            });
+                          }
+                          else
+                          {
+                            nextPage();
+                          }
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 15),
                   Text(
                     error,
                     style: const TextStyle(color: Colors.red, fontSize: 14.0),
                   ),
                   const SizedBox(height: 40.0),
-                  const Row(
-                    children: [
+                  Row(
+                    children: const [
                       Expanded(child: Divider(thickness: 1,color: Colors.redAccent,)),
                       SizedBox(width: 10,),
-                      Text("Or Continue With",style: TextStyle(fontSize: 15),),
+                      Text("Or Continue With",style: TextStyle(fontSize: 15,color: Colors.white),),
                       SizedBox(width: 10,),
                       Expanded(child: Divider(thickness: 1,color: Colors.redAccent,))
                     ],

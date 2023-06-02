@@ -24,7 +24,7 @@ class _MenuState extends State<Menu>  {
                     gradient: appBarGradient
                 ),
               ),
-              buildAppBar("New Hostilite")
+              buildAppBar("Menu",false,context)
             ],
           ),
         ),

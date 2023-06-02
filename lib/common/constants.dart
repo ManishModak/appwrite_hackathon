@@ -21,13 +21,22 @@ const appBarGradient = LinearGradient(
     ]
 ); // app Bar Decoration
 
-const buttonLinearGradient = LinearGradient(
+const buttonLinearGradient_1 = LinearGradient(
     colors: [
       Colors.teal,
       Colors.deepPurple
     ],
     begin: Alignment.bottomLeft ,
     end: Alignment.topRight ,
+);
+
+const buttonLinearGradient_2 = LinearGradient(
+  colors: [
+    Colors.deepPurple,
+    Colors.teal,
+  ],
+  begin: Alignment.bottomLeft ,
+  end: Alignment.topRight ,
 );
 
 const buttonRadialGradient_1 = RadialGradient(
@@ -79,7 +88,7 @@ Card menuCard(String text,String page,BuildContext context) {
   );
 }
 
-AppBar buildAppBar(String text) {
+AppBar buildAppBar(String text,bool flag,BuildContext context) {
   return AppBar(
     title: Text(
       text,
@@ -90,5 +99,26 @@ AppBar buildAppBar(String text) {
     centerTitle: true,
     elevation: 0,
     backgroundColor: Colors.transparent,
+    leading: flag ? leadingIcon(context) : null
   );
 } // Default app Bar propertires
+
+Material leadingIcon(BuildContext context) {
+  return Material(
+    shape: const CircleBorder(),
+    color: Colors.black54,
+    child: InkWell(
+      onTap: () {
+          Navigator.pushNamed(context, "/menu");
+      },
+      child: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Icon(
+          Icons.list_rounded,
+          color: Colors.white,
+          size: 40,
+        ),
+      ),
+    ),
+  );
+}
