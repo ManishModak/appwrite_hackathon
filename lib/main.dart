@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mat_security/pages/authenticationPages//login_page.dart';
 import 'package:mat_security/pages/menuPages//manualEntry_page.dart';
 import 'package:mat_security/pages/menu_page.dart';
-import 'package:mat_security/pages/menuPages/newHostelite_page.dart';
+import 'package:mat_security/pages/menuPages/newStudent_page.dart';
 import 'package:mat_security/pages/menuPages/dailyLog_page.dart';
 
 void main() async {
