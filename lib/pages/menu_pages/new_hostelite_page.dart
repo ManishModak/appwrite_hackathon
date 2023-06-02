@@ -94,7 +94,7 @@ Widget build(BuildContext context) {
                   gradient: appBarGradient
                 ),
               ),
-              buildAppBar("New Hostilite",false,context)
+              buildAppBar1("New Hostilite")
             ],
           ),
         ),

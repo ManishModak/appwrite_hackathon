@@ -30,7 +30,7 @@ class _DailyLogState extends State<DailyLog> {
                     gradient: appBarGradient
                 ),
               ),
-              buildAppBar("Daily Log",false,context)
+              buildAppBar2("Daily Log",context)
             ],
           ),
         ),

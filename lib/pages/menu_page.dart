@@ -24,7 +24,7 @@ class _MenuState extends State<Menu>  {
                     gradient: appBarGradient
                 ),
               ),
-              buildAppBar("Menu",false,context)
+              buildAppBar1("Menu")
             ],
           ),
         ),
@@ -64,15 +64,6 @@ class _MenuState extends State<Menu>  {
               child: Container(
                 decoration: boxDecoration(),
                 child: menuCard("Daily Log","log",context),
-              ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 390, // Specify the desired width
-              height: 50,
-              child: Container(
-                decoration: boxDecoration(),
-                child: menuCard("Manual Entry","entry",context),
               ),
             ),
           ],
