@@ -5,11 +5,6 @@ import 'package:mat_security/services/log_database.dart';
 class ManualEntry extends StatefulWidget {
   const ManualEntry({super.key});
 
-  void logStudent(String id){
-    LogDatabase log = LogDatabase();
-    log.addLog(id: id);
-  }
-
   @override
   State<ManualEntry> createState() => _ManualEntryState();
 }
@@ -18,11 +13,15 @@ class _ManualEntryState extends State<ManualEntry> {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>() ;
 
   final TextEditingController id = TextEditingController() ;
+  void logStudent(String id){
+    LogDatabase log = LogDatabase();
+    log.addLog(id: id);
+  }
 
   void submitButton () async{
 
     if(formkey.currentState!.validate()) {
-      logStudent(id);
+      logStudent(id as String);
       setState(() {
         id.clear() ;
       });

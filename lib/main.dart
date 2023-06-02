@@ -6,9 +6,6 @@ import 'package:mat_security/pages/menuPages/newAdmin_page.dart';
 import 'package:mat_security/pages/menu_page.dart';
 import 'package:mat_security/pages/menuPages/newStudent_page.dart';
 import 'package:mat_security/pages/menuPages/dailyLog_page.dart';
-import 'package:mat_security/pages/menu_pages/new_hostelite_page.dart';
-import 'package:mat_security/pages/menu_pages/daily_log_page.dart';
-import 'package:mat_security/services/main_database.dart';
 
 void main() async {
 
