@@ -1,5 +1,6 @@
 import 'package:mat_security/services/admin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
 
@@ -12,8 +13,14 @@ class AuthService {
   Future signInWithEmailAndPassword(String email,String password) async {
     try{
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password) ;
-      print(result) ;
       User? user = result.user;
+
+      if (user != null) {
+        // Save the email to SharedPreferences
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('email', email);
+      }
+
       return _adminFromFirebaseUser(user!);
     }catch(e){
       return null;

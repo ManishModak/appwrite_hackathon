@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mat_security/pages/home_page.dart';
-import 'package:mat_security/pages/login_page.dart';
-import 'package:mat_security/pages/manual_entry_page.dart';
+import 'package:mat_security/pages/authentication_pages/login_page.dart';
+import 'package:mat_security/pages/menu_pages/manual_entry_page.dart';
 import 'package:mat_security/pages/menu_page.dart';
-import 'package:mat_security/pages/new_hostelite_page.dart';
-import 'package:mat_security/pages/daily_log_page.dart';
+import 'package:mat_security/pages/menu_pages/new_hostelite_page.dart';
+import 'package:mat_security/pages/menu_pages/daily_log_page.dart';
 
 void main() async {
 

@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 
 const textInputDecoration = InputDecoration(
   hintStyle: TextStyle(fontSize: 20,letterSpacing: 1.25,color: Colors.grey),
-  fillColor: Colors.white ,
+  fillColor: Colors.black12 ,
+  filled: true,
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.grey)
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.white)
+  )
 );
 
 const appBarGradient = LinearGradient(
