@@ -121,10 +121,16 @@ class _LoginState extends State<Login> {
                         if(_formKey.currentState!.validate()){
                           setState(() => loading = true);
                           dynamic result = await _auth.signInWithEmailAndPassword(email.text.trim(), password.text);
-                          if(result == null){
+                          if(result == "invalid"){
                             setState(() {
                               loading = false ;
                               error = 'Could not sign in with those credentials' ;
+                            });
+                          }
+                          else if(result == "unauthorised"){
+                            setState(() {
+                              loading = false ;
+                              error = 'You Do not have access to app. Contact admin.' ;
                             });
                           }
                           else
@@ -181,7 +187,7 @@ class _LoginState extends State<Login> {
                     style: const TextStyle(color: Colors.red, fontSize: 14.0),
                   ),
                   const SizedBox(height: 40.0),
-                  const Row(
+                  Row(
                     children: [
                       Expanded(child: Divider(thickness: 1,color: Colors.redAccent,)),
                       SizedBox(width: 10,),

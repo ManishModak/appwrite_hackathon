@@ -18,24 +18,22 @@ class AuthService {
     teams = Teams(client);
   }
 
-//   bool checkMembership(email){
-//     try{
-//       Future result = teams.get(teamId: "6479dad5cc82ac9cf6f3");
-//       result.asMap().forEach((i, value) {
-//         pr
-//
-//
-//       return session.$id;
-//     }catch(e){
-//       return null;
-//     }
-//
-// return false;
-//   }
+  Future<bool> checkMembership(email) async {
+    try{
+      final result = await teams.listMemberships(teamId: "6479dad5cc82ac9cf6f3");
+      for(int i=0 ;i<result.total;i++){
+        if(result.memberships[i].userEmail == email){
+          return true;
+        }
+      }
+      return false;
+    }catch(e){
+      return false;
+    }
 
-  // Admin? _adminFromFirebaseUser(Se) {
-  //   return Admin(uid: user.uid) ;
-  // }
+  }
+
+
 
   Future signInWithEmailAndPassword(String email,String password) async {
     try{
@@ -45,16 +43,21 @@ class AuthService {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('email', email);
       }
-      return session.$id;
+      if(await checkMembership(email)){
+        return session.$id;
+      }
+      else{
+        return "unauthorised";
+      }
+
     }catch(e){
-      return null;
+      return "invalid";
     }
   }
 
   Future registerWithEmailAndPassword(String email,String password) async{
     try{
       final user = await account.create(userId: ID.unique(),email: email, password: password) ;
-
       if (user.$id.isNotEmpty) {
         // Save the email to SharedPreferences
         SharedPreferences prefs = await SharedPreferences.getInstance();
