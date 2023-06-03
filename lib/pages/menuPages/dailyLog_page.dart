@@ -2,8 +2,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import '../../common/constants.dart';
+import 'package:mat_security/common/constants.dart';
 
 
 class DailyLog extends StatefulWidget {
@@ -45,7 +44,7 @@ class _DailyLogState extends State<DailyLog> {
                   gradient: appBarGradient,
                 ),
               ),
-              buildAppBar2("Daily Log",context)
+              buildAppBar1("Daily Log")
             ],
           ),
         ),
