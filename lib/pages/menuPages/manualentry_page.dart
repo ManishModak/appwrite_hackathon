@@ -3,29 +3,45 @@ import 'package:mat_security/common/constants.dart';
 import 'package:mat_security/services/log_database.dart';
 
 class ManualEntry extends StatefulWidget {
-  const ManualEntry({super.key});
+  const ManualEntry({Key? key}) : super(key: key);
 
   @override
   State<ManualEntry> createState() => _ManualEntryState();
 }
 
 class _ManualEntryState extends State<ManualEntry> {
-  final GlobalKey<FormState> formkey = GlobalKey<FormState>() ;
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  final TextEditingController id = TextEditingController();
 
-  final TextEditingController id = TextEditingController() ;
-  void logStudent(String id){
+  bool _isValidId(String id) {
+    final RegExp validIdRegex = RegExp(r'^[a-zA-Z0-9][a-zA-Z0-9_]*$');
+    return validIdRegex.hasMatch(id);
+  }
+
+  void logStudent(String id) {
+    if (!_isValidId(id)) {
+      showSnackBar('Invalid ID');
+      return;
+    }
+
     LogDatabase log = LogDatabase();
     log.addLog(id: id);
   }
 
-  void submitButton () async{
+  void showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
 
-    if(formkey.currentState!.validate()) {
-      logStudent(id as String);
+  void submitButton() async {
+    if (formkey.currentState!.validate()) {
+      logStudent(id.text);
       setState(() {
-        id.clear() ;
+        id.clear();
       });
-
     }
   }
 

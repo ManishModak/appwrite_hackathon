@@ -4,35 +4,29 @@ import 'package:intl/intl.dart';
 import 'package:mat_security/services/main_database.dart';
 
 class LogDatabase {
-  final Client _client = Client();
+  late final Client _client;
   late final Databases _database;
   String dID = '647a0fa72e02c1bdcc70';
 
   LogDatabase() {
-    _client
-        .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
-        .setProject('6479bcbb10618eda232a'); // Replace with your Appwrite project ID
-
+    _client = Client().setEndpoint('https://cloud.appwrite.io/v1').setProject('6479bcbb10618eda232a');
     _database = Databases(_client);
   }
 
   Future<void> addLog({required String id}) async {
     DateTime currentTime = DateTime.now();
     String formattedTime = DateFormat('HH:mm:ss').format(currentTime);
-    String formattedDate = DateFormat('yyyy:MM:dd').format(currentTime);
-
-    Map<String, dynamic> data;
+    String formattedDate = DateFormat('yyyyMMdd').format(currentTime);
 
     final snapshot = await _database.listDocuments(
-      collectionId: formattedDate,
+      collectionId: 'logs_$formattedDate',
       databaseId: dID,
     );
 
     for (var doc in snapshot.documents) {
-      Map<String, dynamic> data = doc.data;
-      if (data['id'] == id && data['inTime'] == null) {
+      if (doc.data['id'] == id && doc.data['inTime'] == null) {
         await _database.updateDocument(
-          collectionId: formattedDate,
+          collectionId: 'logs_$formattedDate',
           databaseId: dID,
           documentId: id,
           data: {'inTime': formattedTime},
@@ -42,7 +36,7 @@ class LogDatabase {
     }
 
     MainDatabase student = MainDatabase();
-    data = await student.getInfo(id: id);
+    Map<String, dynamic> data = await student.getInfo(id: id);
 
     Map<String, dynamic> stdData = {
       'id': id,
@@ -51,15 +45,20 @@ class LogDatabase {
       'outTime': formattedTime,
       'inTime': null,
     };
-    await _database.createDocument(
-      collectionId: formattedDate,
-      databaseId: dID,
-      documentId: ID.unique(),
-      data: stdData,
-    );
 
-    if (kDebugMode) {
-      print('done');
+    try {
+      await _database.createDocument(
+        collectionId: 'logs_$formattedDate',
+        databaseId: dID,
+        documentId: DateTime.now().toString(),
+        data: stdData,
+      );
+
+      if (kDebugMode) {
+        print('done');
+      }
+    } catch (e) {
+      print('Error adding log: $e');
     }
   }
 }
