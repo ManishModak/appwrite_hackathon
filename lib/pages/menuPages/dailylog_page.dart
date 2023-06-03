@@ -97,13 +97,17 @@ class _DailyLogState extends State<DailyLog> {
                     rows: documents.map((document) {
                       final data = document.data;
 
+                      var inTime = data['inTime'];
+                      if(inTime == 'null'){
+                        inTime = '';
+                      }
                       return DataRow(
                         cells: [
                           DataCell(Text(data['id'], style: const TextStyle(color: Colors.white))),
                           DataCell(Text(data['name'], style: const TextStyle(color: Colors.white))),
                           DataCell(Text(data['roomNo'], style: const TextStyle(color: Colors.white))),
                           DataCell(Text(data['outTime'], style: const TextStyle(color: Colors.redAccent))),
-                          DataCell(Text(data['inTime'], style: const TextStyle(color: Colors.greenAccent))),
+                          DataCell(Text(inTime, style: const TextStyle(color: Colors.greenAccent))),
                         ],
                       );
                     }).toList(),

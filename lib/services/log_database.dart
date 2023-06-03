@@ -22,10 +22,12 @@ class LogDatabase {
     String formattedTime = DateFormat('HH:mm:ss').format(currentTime);
     String formattedDate = DateFormat('yyyyMMdd').format(currentTime);
     String studName;
+    String roomNo;
     //check if id exists in database
     try{
     final stud = await _database.getDocument(databaseId: userDId, collectionId: studCollId, documentId: id);
     studName = stud.data['name'];
+    roomNo = stud.data['roomNo'];
       //print('stud found');
     }
     catch (e){
@@ -81,6 +83,7 @@ class LogDatabase {
           'date':formattedDate,
           'outTime':formattedTime,
           'name':studName,
+          'roomNo':roomNo,
           'inTime':'null'
         }
         );
@@ -95,12 +98,24 @@ class LogDatabase {
   }
 
   Future<List<Document>> getDocuments() async {
+    DateTime currentTime = DateTime.now();
+    String formattedDate = DateFormat('yyyyMMdd').format(currentTime);
     final response = await _database.listDocuments(
       collectionId: logsCollId,
       databaseId: logsDId,
-      queries: []
+      queries: [Query.orderDesc('\$createdAt'), Query.limit(100), Query.equal('date', formattedDate)]
     );
+    
+    return response.documents;
+  }
 
+  Future<List<Document>> getNotReturned() async {
+    final response = await _database.listDocuments(
+      collectionId: logsCollId,
+      databaseId: logsDId,
+      queries: [Query.orderDesc('\$createdAt'),
+      Query.equal('inTime', 'null')]
+    );
     return response.documents;
   }
 }
