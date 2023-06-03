@@ -23,7 +23,7 @@ void main() async {
     ),
     themeMode: ThemeMode.system,
 
-    initialRoute: '/login', // Set the initial route to '/login'
+    initialRoute: '/newStudent', // Set the initial route to '/login'
     routes: {
       '/newAdmin':(context) => const NewAdmin(),
       '/login': (context) => const Login(), // Route for the login page

@@ -18,9 +18,9 @@ class MainDatabase {
     required String room,
     required String branch,
     required String mobile,
-    required String url,
+    required String imageFileId,
   }) async {
-    final document = await _database.createDocument(
+    await _database.createDocument(
       collectionId: cID,
       databaseId: dID,
       documentId: id,
@@ -30,7 +30,7 @@ class MainDatabase {
         'roomNo': room,
         'branch': branch,
         'mobileNo': mobile,
-        'imageUrl': url,
+        'imageFileId': imageFileId,
       },
     );
   }
@@ -45,30 +45,36 @@ class MainDatabase {
     return data;
   }
 
-  Future<void> updateRoom({required String id, required String room}) async {
+  Future<Map<String, dynamic>> updateRoom({required String id, required String room}) async {
     final document = await _database.updateDocument(
       collectionId: cID,
       documentId: id,
       databaseId: dID,
       data: {'roomNo': room},
     );
+    Map<String, dynamic> data = document.data;
+    return data;
   }
 
-  Future<void> updateBranch({required String id, required String branch}) async {
+  Future<Map<String, dynamic>> updateBranch({required String id, required String branch}) async {
     final document = await _database.updateDocument(
       databaseId: dID,
       collectionId: cID,
       documentId: id,
       data: {'branch': branch},
     );
+    Map<String, dynamic> data = document.data;
+    return data;
   }
 
-  Future<void> deleteStudent({required String id}) async {
+  Future<Map<String, dynamic>> deleteStudent({required String id}) async {
     final document = await _database.deleteDocument(
       databaseId: dID,
       collectionId: cID,
       documentId: id,
     );
+    Map<String, dynamic> data = document.data;
+    return data;
   }
 }
 

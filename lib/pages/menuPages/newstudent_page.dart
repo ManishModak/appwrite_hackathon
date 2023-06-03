@@ -53,14 +53,12 @@ class _NewStudentState extends State<NewStudent> {
           path: studentPic!.path,
           filename: '${id.text}.jpg',
           contentType: 'image/jpeg',
-        ), bucketId: '647a27faaae8cd0f36c4', fileId: '$id'
+        ),
+        bucketId: '647a27faaae8cd0f36c4',
+        fileId: id.text.replaceAll(RegExp(r'[^a-zA-Z0-9_.-]'), '_'), // Replace special characters with underscores
       );
 
       final fileId = storageFile.$id; // Use the file ID returned from createFile
-
-      final previewUrl = await storage.getFilePreview(fileId: fileId, bucketId: '647a27faaae8cd0f36c4');
-
-      String downloadUrl = previewUrl as String;
 
       student.addStudent(
         id: id.text,
@@ -68,7 +66,7 @@ class _NewStudentState extends State<NewStudent> {
         room: roomNo.text,
         branch: branch.text,
         mobile: mobileNo.text,
-        url: downloadUrl,
+        imageFileId: fileId,
       );
 
       setState(() {
@@ -76,11 +74,13 @@ class _NewStudentState extends State<NewStudent> {
         studentPic = null;
       });
 
-      id.clear();
-      name.clear();
-      roomNo.clear();
-      branch.clear();
-      mobileNo.clear();
+      setState(() {
+        id.clear();
+        name.clear();
+        roomNo.clear();
+        branch.clear();
+        mobileNo.clear();
+      });
 
       Future.delayed(Duration.zero, () {
         _formKey.currentState!.reset();
