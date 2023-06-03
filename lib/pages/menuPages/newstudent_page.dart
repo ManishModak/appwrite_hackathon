@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -97,7 +95,7 @@ class _NewStudentState extends State<NewStudent> {
                   gradient: appBarGradient,
                 ),
               ),
-              buildAppBar("New Hostilite",false,context)
+              buildAppBar1("New Hostilite")
             ],
           ),
         ),
