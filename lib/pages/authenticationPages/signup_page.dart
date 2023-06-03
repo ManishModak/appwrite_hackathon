@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../common/constants.dart';
-import '../../common/loading_page.dart';
-import '../../services/auth.dart';
+import 'package:mat_security/common/constants.dart';
+import 'package:mat_security/common/loading_page.dart';
+import 'package:mat_security/services/auth.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
