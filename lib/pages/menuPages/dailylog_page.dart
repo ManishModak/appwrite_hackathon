@@ -1,8 +1,8 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:mat_security/common/constants.dart';
+import 'package:mat_security/services/log_database.dart';
 
 
 class DailyLog extends StatefulWidget {
@@ -13,11 +13,14 @@ class DailyLog extends StatefulWidget {
 }
 
 class _DailyLogState extends State<DailyLog> {
+
   final Client _client = Client();
   late final Databases _database;
   String dID = '647a0fa72e02c1bdcc70';
 
   DateTime currentTime = DateTime.now();
+
+  final LogDatabase _log = LogDatabase() ;
 
   @override
   void initState() {
@@ -49,7 +52,7 @@ class _DailyLogState extends State<DailyLog> {
           ),
         ),
         body: FutureBuilder<List<Document>>(
-          future: _getDocuments(),
+          future: _log.getDocuments() ,
           builder: (BuildContext context, AsyncSnapshot<List<Document>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
@@ -114,13 +117,5 @@ class _DailyLogState extends State<DailyLog> {
     );
   }
 
-  Future<List<Document>> _getDocuments() async {
-    final formattedDate = DateFormat('yyyy:MM:dd').format(currentTime);
-    final response = await _database.listDocuments(
-      collectionId: formattedDate,
-      databaseId: dID,
-    );
 
-    return response.documents;
-  }
 }

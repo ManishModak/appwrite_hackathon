@@ -1,7 +1,6 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:flutter/foundation.dart';
+import 'package:appwrite/models.dart';
 import 'package:intl/intl.dart';
-import 'package:mat_security/services/main_database.dart';
 
 class LogDatabase {
 
@@ -17,20 +16,20 @@ class LogDatabase {
     _database = Databases(_client);
   }
 
-  Future<void> addLog({required String id}) async {
+  Future<String> addLog({required String id}) async {
+
     DateTime currentTime = DateTime.now();
     String formattedTime = DateFormat('HH:mm:ss').format(currentTime);
     String formattedDate = DateFormat('yyyyMMdd').format(currentTime);
 
     //check if id exists in database
-
     try{
-      final stud = await _database.getDocument(databaseId: userDId, collectionId: studCollId, documentId: id);
-      print('stud found');
+      await _database.getDocument(databaseId: userDId, collectionId: studCollId, documentId: id);
+      //print('stud found');
     }
     catch (e){
-      print('Stud not fount $e');
-      return;
+      //print('Stud not fount $e');
+      return "Student does not exist";
     }
 
     //if student found check if student is gone out
@@ -43,16 +42,16 @@ class LogDatabase {
       bool isStudOut;
       if(result.total == 0){
         //no out entry
-        print('student is in.no out entry');
+        //print('student is in.no out entry');
         isStudOut = false;
       }
       else{
         if(result.documents[0].data['inTime'] == 'null'){
-          print('student is still out');
+          //print('student is still out');
           isStudOut = true;
         }
         else{
-          print('student is returned');
+          //print('student is returned');
           isStudOut = false;
         }
       }
@@ -67,11 +66,12 @@ class LogDatabase {
             documentId: result.documents[0].$id,
             data : {'inTime':formattedTime}
         );
-        print('updated record');
+        //print('updated record');
+        return "Student In Record created" ;
       }
       else{
         //create new record in log
-        var formattedId = formattedDate + formattedTime.replaceAll(':', '');
+        var formattedId = formattedDate + formattedTime.replaceAll(':', '') + id ;
         await _database.createDocument(databaseId: logsDId,
             collectionId: logsCollId,
             documentId: formattedId,
@@ -82,14 +82,14 @@ class LogDatabase {
           'inTime':'null'
         }
         );
-        print('created record');
+        //print('created record');
+        return "Student Out Record created" ;
       }
 
     }catch (e){
-      print(e);
+      //print(e);
+      return 'An error occured';
     }
-
-
 
 
     //
@@ -136,5 +136,15 @@ class LogDatabase {
     // } catch (e) {
     //   print('Error adding log: $e');
     // }
+  }
+
+  Future<List<Document>> getDocuments() async {
+    final formattedDate = DateFormat('yyyy:MM:dd').format(DateTime.timestamp());
+    final response = await _database.listDocuments(
+      collectionId: logsCollId,
+      databaseId: logsDId,
+    );
+
+    return response.documents;
   }
 }

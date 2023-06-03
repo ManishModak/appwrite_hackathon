@@ -17,6 +17,7 @@ class _SignUpState extends State<SignUp> {
 
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
+  final TextEditingController name = TextEditingController() ;
 
   bool loading = false ;
   late String error = '' ;

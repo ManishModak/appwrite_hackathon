@@ -10,8 +10,11 @@ class ManualEntry extends StatefulWidget {
 }
 
 class _ManualEntryState extends State<ManualEntry> {
+
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final TextEditingController id = TextEditingController();
+  late String operationPerformed ;
+  late String messageShowed ;
 
   bool _isValidId(String id) {
     final RegExp validIdRegex = RegExp(r'^[a-zA-Z0-9][a-zA-Z0-9_]*$');
@@ -19,13 +22,18 @@ class _ManualEntryState extends State<ManualEntry> {
   }
 
   void logStudent(String id) {
+
     if (!_isValidId(id)) {
       showSnackBar('Invalid ID');
       return;
     }
 
     LogDatabase log = LogDatabase();
-    log.addLog(id: id);
+    operationPerformed = log.addLog(id: id) as String;
+
+    setState(() {
+      messageShowed = operationPerformed ;
+    });
   }
 
   void showSnackBar(String message) {
