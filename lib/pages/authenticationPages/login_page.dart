@@ -175,7 +175,10 @@ class _LoginState extends State<Login> {
                           }
                           else
                           {
-                            nextPage();
+                            setState(() {
+                              loading = false ;
+                              error = 'Signed up successfully. Contact admin for access.' ;
+                            });
                           }
                         }
                       },
