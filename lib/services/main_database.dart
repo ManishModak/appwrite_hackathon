@@ -4,6 +4,7 @@ class MainDatabase {
   final Client _client = Client();
   late final Databases _database = Databases(_client);
   String dID = '647a0fa72e02c1bdcc70';
+  String cID = '647ad7cd03478b4f9497';
 
   MainDatabase() {
     _client
@@ -20,9 +21,9 @@ class MainDatabase {
     required String url,
   }) async {
     final document = await _database.createDocument(
-      collectionId: 'users',
+      collectionId: cID,
       databaseId: dID,
-      documentId: ID.unique(),
+      documentId: id,
       data: {
         'id': id,
         'name': name,
@@ -36,7 +37,7 @@ class MainDatabase {
 
   Future<Map<String, dynamic>> getInfo({required String id}) async {
     final document = await _database.getDocument(
-      collectionId: 'users',
+      collectionId: cID,
       documentId: id,
       databaseId: dID,
     );
@@ -46,7 +47,7 @@ class MainDatabase {
 
   Future<void> updateRoom({required String id, required String room}) async {
     final document = await _database.updateDocument(
-      collectionId: 'users',
+      collectionId: cID,
       documentId: id,
       databaseId: dID,
       data: {'roomNo': room},
@@ -56,7 +57,7 @@ class MainDatabase {
   Future<void> updateBranch({required String id, required String branch}) async {
     final document = await _database.updateDocument(
       databaseId: dID,
-      collectionId: 'users',
+      collectionId: cID,
       documentId: id,
       data: {'branch': branch},
     );
@@ -65,7 +66,7 @@ class MainDatabase {
   Future<void> deleteStudent({required String id}) async {
     final document = await _database.deleteDocument(
       databaseId: dID,
-      collectionId: 'users',
+      collectionId: cID,
       documentId: id,
     );
   }
