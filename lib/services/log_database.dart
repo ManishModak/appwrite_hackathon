@@ -21,10 +21,11 @@ class LogDatabase {
     DateTime currentTime = DateTime.now();
     String formattedTime = DateFormat('HH:mm:ss').format(currentTime);
     String formattedDate = DateFormat('yyyyMMdd').format(currentTime);
-
+    String studName;
     //check if id exists in database
     try{
-      await _database.getDocument(databaseId: userDId, collectionId: studCollId, documentId: id);
+    final stud = await _database.getDocument(databaseId: userDId, collectionId: studCollId, documentId: id);
+    studName = stud.data['name'];
       //print('stud found');
     }
     catch (e){
@@ -79,6 +80,7 @@ class LogDatabase {
           'id':id,
           'date':formattedDate,
           'outTime':formattedTime,
+          'name':studName,
           'inTime':'null'
         }
         );
@@ -90,59 +92,13 @@ class LogDatabase {
       //print(e);
       return 'An error occured';
     }
-
-
-    //
-    // final snapshot = await _database.listDocuments(
-    //   collectionId: 'logs_$formattedDate',
-    //   databaseId: dID,
-    // );
-    //
-    // for (var doc in snapshot.documents) {
-    //   if (doc.data['id'] == id && doc.data['inTime'] == null) {
-    //     await _database.updateDocument(
-    //       collectionId: 'logs_$formattedDate',
-    //       databaseId: dID,
-    //       documentId: id,
-    //       data: {'inTime': formattedTime},
-    //     );
-    //     return;
-    //   }
-    // }
-    //
-    // MainDatabase student = MainDatabase();
-    //
-    // Map<String, dynamic> data = await student.getInfo(id: id);
-    //
-    // Map<String, dynamic> stdData = {
-    //   'id': id,
-    //   'roomNo': data['roomNo'],
-    //   'name': data['name'],
-    //   'outTime': formattedTime,
-    //   'inTime': null,
-    // };
-    //
-    // try {
-    //   await _database.createDocument(
-    //     collectionId: 'logs_$formattedDate',
-    //     databaseId: dID,
-    //     documentId: DateTime.now().toString(),
-    //     data: stdData,
-    //   );
-    //
-    //   if (kDebugMode) {
-    //     print('done');
-    //   }
-    // } catch (e) {
-    //   print('Error adding log: $e');
-    // }
   }
 
   Future<List<Document>> getDocuments() async {
-    final formattedDate = DateFormat('yyyy:MM:dd').format(DateTime.timestamp());
     final response = await _database.listDocuments(
       collectionId: logsCollId,
       databaseId: logsDId,
+      queries: []
     );
 
     return response.documents;
