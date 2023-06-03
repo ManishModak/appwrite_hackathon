@@ -38,9 +38,13 @@ class _NewStudentState extends State<NewStudent> {
   }
 
   void _submitForm() async {
+
     if (_formKey.currentState!.validate()) {
+
       MainDatabase student = MainDatabase();
-      final client = Client().setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
+
+      final client = Client()
+          .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
           .setProject('6479bcbb10618eda232a'); // Replace with your Appwrite project ID
       final storage = Storage(client);
 
@@ -51,6 +55,7 @@ class _NewStudentState extends State<NewStudent> {
           contentType: 'image/jpeg',
         ), bucketId: '647a27faaae8cd0f36c4', fileId: '$id'
       );
+
       final fileId = storageFile.$id; // Use the file ID returned from createFile
 
       final previewUrl = await storage.getFilePreview(fileId: fileId, bucketId: '647a27faaae8cd0f36c4');
