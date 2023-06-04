@@ -1,0 +1,36 @@
+{
+    "projectId": "6479bcbb10618eda232a",
+    "projectName": "Hackathon_Hostel_in_out",
+    "functions": [
+        {
+            "$id": "647c2e60b75d437ca81f",
+            "name": "db_to_bucket",
+            "runtime": "node-16.0",
+            "path": "functions/db_to_bucket",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15
+        },
+        {
+            "$id": "647c61ec3b685cdcf667",
+            "name": "test",
+            "runtime": "node-16.0",
+            "path": "functions/test",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15
+        }
+    ]
+}
