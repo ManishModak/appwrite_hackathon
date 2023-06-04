@@ -28,45 +28,60 @@ class _MenuState extends State<Menu>  {
             ],
           ),
         ),
-        body: Column(
-          children: [
-            const SizedBox(height: 30),
-            SizedBox(
-              width: 390, // Specify the desired width
-              height: 50, // Specify the desired height
-              child: Container(
-                decoration: boxDecoration(),
-                child: menuCard("New Admin", "newAdmin", context),
+        body: Container(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          child: Column(
+            children: [
+              const SizedBox(height: 30),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 50,
+                      decoration: boxDecoration(),
+                      child: menuCard("New Admin", "newAdmin", context),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 390, // Specify the desired width
-              height: 50,
-              child: Container(
-                decoration: boxDecoration(),
-                child: menuCard("New Student","newStudent",context),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 50,
+                      decoration: boxDecoration(),
+                      child: menuCard("New Student","newStudent",context),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 390, // Specify the desired width
-              height: 50,
-              child: Container(
-                decoration: boxDecoration(),
-                child: menuCard("Student's List","list",context),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 50,
+                      decoration: boxDecoration(),
+                      child: menuCard("Student's List","list",context),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 390, // Specify the desired width
-              height: 50,
-              child: Container(
-                decoration: boxDecoration(),
-                child: menuCard("Daily Log","log",context),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 50,
+                      decoration: boxDecoration(),
+                      child: menuCard("Daily Log","log",context),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -71,7 +71,7 @@ Card menuCard(String text,String page,BuildContext context) {
     color: Colors.transparent,
     elevation: 0,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(12),
     ),
     child: InkWell(
       onTap: () {

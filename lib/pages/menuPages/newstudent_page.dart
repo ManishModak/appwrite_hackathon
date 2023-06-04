@@ -24,7 +24,7 @@ class _NewStudentState extends State<NewStudent> {
   final TextEditingController branch = TextEditingController();
   final TextEditingController mobileNo = TextEditingController();
 
-  File? studentPic;
+  File? studentPic ;
   double percentage = 0;
 
   @override
@@ -39,53 +39,47 @@ class _NewStudentState extends State<NewStudent> {
 
   void _submitForm() async {
 
-    if (_formKey.currentState!.validate()) {
+    MainDatabase student = MainDatabase();
 
-      MainDatabase student = MainDatabase();
+    final client = Client()
+        .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
+        .setProject('6479bcbb10618eda232a'); // Replace with your Appwrite project ID
+    final storage = Storage(client);
 
-      final client = Client()
-          .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
-          .setProject('6479bcbb10618eda232a'); // Replace with your Appwrite project ID
-      final storage = Storage(client);
+    final storageFile = await storage.createFile(
+      file: InputFile.fromPath(
+        path: studentPic!.path,
+        filename: '${id.text}.jpg',
+        contentType: 'image/jpeg',
+      ),
+      bucketId: '647a27faaae8cd0f36c4',
+      fileId: id.text.replaceAll(RegExp(r'[^a-zA-Z0-9_.-]'), '_'), // Replace special characters with underscores
+    );
 
-      final storageFile = await storage.createFile(
-        file: InputFile.fromPath(
-          path: studentPic!.path,
-          filename: '${id.text}.jpg',
-          contentType: 'image/jpeg',
-        ),
-        bucketId: '647a27faaae8cd0f36c4',
-        fileId: id.text.replaceAll(RegExp(r'[^a-zA-Z0-9_.-]'), '_'), // Replace special characters with underscores
-      );
+    final fileId = storageFile.$id; // Use the file ID returned from createFile
 
-      final fileId = storageFile.$id; // Use the file ID returned from createFile
+    student.addStudent(
+      id: id.text,
+      name: name.text,
+      room: roomNo.text,
+      branch: branch.text,
+      mobile: mobileNo.text,
+      imageFileId: fileId,
+    );
 
-      student.addStudent(
-        id: id.text,
-        name: name.text,
-        room: roomNo.text,
-        branch: branch.text,
-        mobile: mobileNo.text,
-        imageFileId: fileId,
-      );
+    setState(() {
+      percentage = 0;
+      studentPic = null;
+    });
 
-      setState(() {
-        percentage = 0;
-        studentPic = null;
-      });
+    setState(() {
+      id.clear();
+      name.clear();
+      roomNo.clear();
+      branch.clear();
+      mobileNo.clear();
+    });
 
-      setState(() {
-        id.clear();
-        name.clear();
-        roomNo.clear();
-        branch.clear();
-        mobileNo.clear();
-      });
-
-      Future.delayed(Duration.zero, () {
-        _formKey.currentState!.reset();
-      });
-    }
   }
 
   @override
@@ -196,11 +190,22 @@ class _NewStudentState extends State<NewStudent> {
                     width: 180,
                     height: 55,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(12),
                       gradient: buttonLinearGradient_1,
                     ),
                     child: ElevatedButton(
-                      onPressed: _submitForm,
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          if(studentPic == null)
+                          {
+                            showSnackBar('Please Upload Image',context);
+                          }
+                          else
+                          {
+                            _submitForm() ;
+                          }
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         elevation: 0,
