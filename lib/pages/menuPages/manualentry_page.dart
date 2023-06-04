@@ -13,40 +13,33 @@ class _ManualEntryState extends State<ManualEntry> {
 
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final TextEditingController id = TextEditingController();
-  late String operationPerformed ;
-  late String messageShowed ;
+  String messageShowed = '';
 
   bool _isValidId(String id) {
     final RegExp validIdRegex = RegExp(r'^[a-zA-Z0-9][a-zA-Z0-9_]*$');
     return validIdRegex.hasMatch(id);
   }
 
-  void logStudent(String id) {
+  Future<void> logStudent(String id) async{
 
     if (!_isValidId(id)) {
-      showSnackBar('Invalid ID');
+      showSnackBar('Invalid ID',context);
       return;
     }
 
     LogDatabase log = LogDatabase();
-    operationPerformed = log.addLog(id: id) as String;
+    String operationPerformed = await log.addLog(id: id) ;
 
     setState(() {
       messageShowed = operationPerformed ;
     });
   }
 
-  void showSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-      ),
-    );
-  }
-
   void submitButton() async {
     if (formkey.currentState!.validate()) {
+
       logStudent(id.text);
+
       setState(() {
         id.clear();
       });
@@ -94,19 +87,24 @@ class _ManualEntryState extends State<ManualEntry> {
                   controller: id,
                 ),
               ),
-              const SizedBox(height:40.0),
+              const SizedBox(height:20.0),
+              Text(
+                messageShowed ,
+                style: const TextStyle(color: Colors.red, fontSize: 16.0),
+              ),
+              const SizedBox(height:20.0),
               Container(
                 width: 180,
                 height: 55,
                 decoration: BoxDecoration(
                     gradient: buttonLinearGradient_1,
-                    borderRadius: BorderRadius.circular(10)
+                    borderRadius: BorderRadius.circular(12)
                 ),
                 child: ElevatedButton(
                   onPressed: submitButton,
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      elevation: 0
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
                   ),
                   child:const Text(
                     "Submit",

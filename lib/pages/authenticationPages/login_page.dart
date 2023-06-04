@@ -95,6 +95,11 @@ class _LoginState extends State<Login> {
                     validator: (val) => val == null || val.length < 8 ? "Enter a password 8+ characters long" : null,
                     controller: password,
                   ),
+                  const SizedBox(height: 15),
+                  Text(
+                    error,
+                    style: const TextStyle(color: Colors.red, fontSize: 14.0),
+                  ),
                   const SizedBox(height: 30.0),
                   Container(
                     height: 50,
@@ -184,13 +189,8 @@ class _LoginState extends State<Login> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 15),
-                  Text(
-                    error,
-                    style: const TextStyle(color: Colors.red, fontSize: 14.0),
-                  ),
                   const SizedBox(height: 40.0),
-                  Row(
+                  const Row(
                     children: [
                       Expanded(child: Divider(thickness: 1,color: Colors.redAccent,)),
                       SizedBox(width: 10,),

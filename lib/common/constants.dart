@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-const textInputDecoration = InputDecoration(
-  hintStyle: TextStyle(fontSize: 20,letterSpacing: 1.25,color: Colors.grey),
+ InputDecoration textInputDecoration = InputDecoration(
+  hintStyle: const TextStyle(fontSize: 20,letterSpacing: 1.25,color: Colors.grey),
   fillColor: Colors.black12 ,
   filled: true,
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.grey)
+    borderSide: const BorderSide(color: Colors.grey),
+    borderRadius: BorderRadius.circular(12)
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.white)
-  )
+    borderSide: const BorderSide(color: Colors.white),
+    borderRadius: BorderRadius.circular(12)
+  ),
 );
 
 const appBarGradient = LinearGradient(
@@ -132,3 +134,11 @@ AppBar buildAppBar2(String text,BuildContext context) {
     )
   );
 } // Default app Bar propertires
+
+ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(String message,BuildContext context) {
+  return ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message),
+    ),
+  );
+}
