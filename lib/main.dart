@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mat_security/pages/authenticationPages//login_page.dart';
 import 'package:mat_security/pages/menuPages//manualentry_page.dart';
 import 'package:mat_security/pages/menuPages/newadmin_page.dart';
+import 'package:mat_security/pages/menuPages/studentlist_page.dart';
 import 'package:mat_security/pages/menu_page.dart';
 import 'package:mat_security/pages/menuPages/newstudent_page.dart';
 import 'package:mat_security/pages/menuPages/dailylog_page.dart';
@@ -25,6 +26,8 @@ void main() async {
 
     initialRoute: '/login', // Set the initial route to '/login'
     routes: {
+
+      '/list' : (context) => const StudentList(),
       '/newAdmin':(context) => const NewAdmin(),
       '/login': (context) => const Login(), // Route for the login page
       '/menu': (context) => const Menu(), // Route for the menu page
