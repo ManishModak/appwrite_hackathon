@@ -24,7 +24,7 @@ void main() async {
     ),
     themeMode: ThemeMode.system,
 
-    initialRoute: '/login', // Set the initial route to '/login'
+    initialRoute: '/list', // Set the initial route to '/login'
     routes: {
 
       '/list' : (context) => const StudentList(),
