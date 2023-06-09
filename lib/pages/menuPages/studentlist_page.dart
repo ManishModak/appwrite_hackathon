@@ -1,3 +1,7 @@
+
+import 'package:mat_security/services/main_database.dart';
+import 'package:appwrite/models.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mat_security/common/constants.dart';
 
@@ -11,6 +15,7 @@ class StudentList extends StatefulWidget {
 class _StudentListState extends State<StudentList> {
 
   String searchText = '';
+  late FutureBuilder<List<Document>> future;
 
   void onTextChanged(String value){
 
@@ -18,6 +23,24 @@ class _StudentListState extends State<StudentList> {
         searchText = value ;
       });
   }
+
+  Future<void> call() async {
+    MainDatabase data = MainDatabase();
+    final StringBuffer stringBuilder = StringBuffer();
+    Map<String, dynamic> stuData = await data.getInfo(id: searchText);
+
+    stringBuilder.writeln('Document Data:');
+    stringBuilder.writeln('ID: ${stuData['id']}');
+    stringBuilder.writeln('Name: ${stuData['name']}');
+    stringBuilder.writeln('Branch: ${stuData['branch']}');
+    stringBuilder.writeln('Room: ${stuData['roomNo']}');
+    stringBuilder.writeln('Mobile: ${stuData['mobileNo']}');
+    String result = stringBuilder.toString();
+    if (kDebugMode) {
+      print(result);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +77,11 @@ class _StudentListState extends State<StudentList> {
             ),
             const SizedBox(height: 16.0),
             Text('Search Text: $searchText')   ,
+            ElevatedButton(
+                onPressed: (){
+                  call();
+                },
+                child: const Text("Submit"))
           ],
         ),
       ),
