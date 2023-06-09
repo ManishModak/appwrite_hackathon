@@ -18,10 +18,10 @@
             "timeout": 15
         },
         {
-            "$id": "647c61ec3b685cdcf667",
-            "name": "test",
+            "$id": "6482c6f05c2eb7278473",
+            "name": "new_admin",
             "runtime": "node-16.0",
-            "path": "functions/test",
+            "path": "functions/new_admin",
             "entrypoint": "src/index.js",
             "ignore": [
                 "node_modules",
