@@ -3,16 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:mat_security/common/constants.dart';
 import 'package:mat_security/services/log_database.dart';
 
-
-class DailyLog extends StatefulWidget {
-  const DailyLog({Key? key}) : super(key: key);
+class OutStudent extends StatefulWidget {
+  const OutStudent({super.key});
 
   @override
-  State<DailyLog> createState() => _DailyLogState();
+  State<OutStudent> createState() => _OutStudentState();
 }
 
-class _DailyLogState extends State<DailyLog> {
-
+class _OutStudentState extends State<OutStudent> {
   final LogDatabase _log = LogDatabase() ;
 
   @override
@@ -34,12 +32,12 @@ class _DailyLogState extends State<DailyLog> {
                   gradient: appBarGradient,
                 ),
               ),
-              buildAppBar1("Daily Log")
+              buildAppBar1("Not Returned")
             ],
           ),
         ),
         body: FutureBuilder<List<Document>>(
-          future: _log.getDocuments() ,
+          future: _log.getNotReturned() ,
           builder: (BuildContext context, AsyncSnapshot<List<Document>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
@@ -109,6 +107,4 @@ class _DailyLogState extends State<DailyLog> {
       ),
     );
   }
-
-
 }

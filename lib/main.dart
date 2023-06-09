@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mat_security/pages/authenticationPages//login_page.dart';
 import 'package:mat_security/pages/menuPages//manualentry_page.dart';
 import 'package:mat_security/pages/menuPages/newadmin_page.dart';
+import 'package:mat_security/pages/menuPages/outstudent_page.dart';
 import 'package:mat_security/pages/menuPages/studentlist_page.dart';
 import 'package:mat_security/pages/menu_page.dart';
 import 'package:mat_security/pages/menuPages/newstudent_page.dart';
@@ -24,7 +25,7 @@ void main() async {
     ),
     themeMode: ThemeMode.system,
 
-    initialRoute: '/list', // Set the initial route to '/login'
+    initialRoute: '/login', // Set the initial route to '/login'
     routes: {
 
       '/list' : (context) => const StudentList(),
@@ -33,7 +34,8 @@ void main() async {
       '/menu': (context) => const Menu(), // Route for the menu page
       '/newStudent': (context) => const NewStudent(), //Route for the New Hostelite page
       '/log':(context) => const DailyLog(),
-      '/entry':(context) => const ManualEntry()
+      '/entry':(context) => const ManualEntry(),
+      '/OutStud':(context) => const OutStudent()
     },
   ));
 }

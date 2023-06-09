@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mat_security/common/constants.dart';
+import 'package:mat_security/services/admin_management.dart';
 
 class NewAdmin extends StatefulWidget {
   const NewAdmin({super.key});
@@ -9,6 +10,8 @@ class NewAdmin extends StatefulWidget {
 }
 
 class _NewAdminState extends State<NewAdmin> {
+
+  final AdminManagement adminM = AdminManagement() ;
 
   final GlobalKey<FormState> formkey = GlobalKey<FormState>() ;
 

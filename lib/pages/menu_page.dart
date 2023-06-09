@@ -80,6 +80,18 @@ class _MenuState extends State<Menu>  {
                   ),
                 ],
               ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 50,
+                      decoration: boxDecoration(),
+                      child: menuCard("Not returned","OutStud",context),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
