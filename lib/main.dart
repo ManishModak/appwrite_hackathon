@@ -1,6 +1,5 @@
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mat_security/pages/authenticationPages//login_page.dart';
 import 'package:mat_security/pages/menuPages//manualentry_page.dart';
@@ -28,7 +27,7 @@ void main() async {
     ),
     themeMode: ThemeMode.system,
 
-    initialRoute: '/login', // Set the initial route to '/login'
+    initialRoute: '/list', // Set the initial route to '/login'
     routes: {
 
       '/list' : (context) => const StudentList(),

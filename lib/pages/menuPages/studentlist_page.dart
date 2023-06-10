@@ -1,7 +1,5 @@
 
 import 'package:mat_security/services/main_database.dart';
-import 'package:appwrite/models.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mat_security/common/constants.dart';
 
@@ -13,32 +11,29 @@ class StudentList extends StatefulWidget {
 }
 
 class _StudentListState extends State<StudentList> {
-
+  MainDatabase data = MainDatabase();
   String searchText = '';
-  late FutureBuilder<List<Document>> future;
+  String id = '';
+  String name = '';
+  String branch = '';
+  String room = '';
+  String mobile = '';
 
   void onTextChanged(String value){
-
       setState(() {
         searchText = value ;
       });
   }
 
   Future<void> call() async {
-    MainDatabase data = MainDatabase();
-    final StringBuffer stringBuilder = StringBuffer();
     Map<String, dynamic> stuData = await data.getInfo(id: searchText);
-
-    stringBuilder.writeln('Document Data:');
-    stringBuilder.writeln('ID: ${stuData['id']}');
-    stringBuilder.writeln('Name: ${stuData['name']}');
-    stringBuilder.writeln('Branch: ${stuData['branch']}');
-    stringBuilder.writeln('Room: ${stuData['roomNo']}');
-    stringBuilder.writeln('Mobile: ${stuData['mobileNo']}');
-    String result = stringBuilder.toString();
-    if (kDebugMode) {
-      print(result);
-    }
+    setState(() {
+      id = stuData['id'];
+      name = stuData['name'];
+      branch = stuData['branch'];
+      room = stuData['roomNo'];
+      mobile = stuData['mobileNo'];
+    });
   }
 
 
@@ -47,7 +42,7 @@ class _StudentListState extends State<StudentList> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight),
+          preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Stack(
             children: [
               Container(
@@ -81,7 +76,20 @@ class _StudentListState extends State<StudentList> {
                 onPressed: (){
                   call();
                 },
-                child: const Text("Submit"))
+                child: const Text("Submit")),
+            const SizedBox(height: 16.0),
+            const Text('Document Data:')   ,
+            const SizedBox(height: 16.0),
+            Text('ID: $id')   ,
+            const SizedBox(height: 16.0),
+            Text('Name: $name')   ,
+            const SizedBox(height: 16.0),
+            Text('Branch: $branch')   ,
+            const SizedBox(height: 16.0),
+            Text('Room: $room')   ,
+            const SizedBox(height: 16.0),
+            Text('Mobile: $mobile')   ,
+
           ],
         ),
       ),
