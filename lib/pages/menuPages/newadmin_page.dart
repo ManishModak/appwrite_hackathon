@@ -17,11 +17,16 @@ class _NewAdminState extends State<NewAdmin> {
 
   final TextEditingController email = TextEditingController() ;
 
+  AdminManagement currentAdmin = AdminManagement() ;
+
+  late String msg ;
+
   void submitButton () async{
 
     if(formkey.currentState!.validate()) {
 
-      setState(() {
+      setState(() async{
+        msg = await currentAdmin.newAdmin(email: email.text) ;
         email.clear() ;
       });
 
@@ -70,7 +75,12 @@ class _NewAdminState extends State<NewAdmin> {
                         controller: email,
                       ),
                     ),
-                    const SizedBox(height:40.0),
+                    const SizedBox(height:20.0),
+                    Text(
+                      msg ,
+                      style: const TextStyle(color: Colors.red, fontSize: 16.0),
+                    ),
+                    const SizedBox(height:20.0),
                     Container(
                       width: 180,
                       height: 55,

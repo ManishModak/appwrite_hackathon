@@ -131,7 +131,7 @@ class _StudentListState extends State<StudentList> {
                   gradient: appBarGradient
                 ),
               ),
-              buildAppBar1("Student's List") ,
+              buildAppBar1("Student Info") ,
             ],
           ),
         ),
