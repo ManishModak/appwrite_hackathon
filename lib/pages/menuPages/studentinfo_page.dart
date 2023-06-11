@@ -1,4 +1,5 @@
-import 'dart:io';
+
+import 'dart:typed_data';
 import 'package:appwrite/appwrite.dart';
 import 'package:mat_security/services/main_database.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +22,11 @@ class _StudentInfoState extends State<StudentInfo> {
   String branch = '';
   String room = '';
   String mobile = '';
-  File? stuPic;
 
   Future<void> submitButton() async {
     String value = searchText.text ;
     try {
       Map<String, dynamic> stuData = await data.getInfo(id: value);
-      var pic = (await data.getPic(id)) as File?;
 
       setState(() {
         id = stuData['id'];
@@ -35,7 +34,6 @@ class _StudentInfoState extends State<StudentInfo> {
         branch = stuData['branch'];
         room = stuData['roomNo'];
         mobile = stuData['mobileNo'];
-        stuPic = pic;
         searchText.clear() ;
       });
     } catch (e) {
@@ -134,12 +132,29 @@ class _StudentInfoState extends State<StudentInfo> {
                   ],
                 ),
                 const SizedBox(height: 20.0),
-                CircleAvatar(
-                  backgroundImage: (stuPic != null) ? FileImage(stuPic!) : null,
-                  radius: 80,
-                  backgroundColor: Colors.grey,
-                ),
-                callBack(),
+              FutureBuilder<Uint8List?>(
+                future: data.getPic(id),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return const Text('Error loading image');
+                  } else if (snapshot.hasData && snapshot.data != null) {
+                    return CircleAvatar(
+                      radius: 50,
+                      backgroundImage: MemoryImage(snapshot.data!),
+                    );
+                  } else {
+                    return const CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.grey,
+                      child: Icon(Icons.account_circle_rounded),
+                    );
+                  }
+                },
+              ),
+
+              callBack(),
               ],
             ),
           ),

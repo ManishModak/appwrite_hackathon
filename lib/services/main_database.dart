@@ -1,6 +1,7 @@
 
+import 'dart:typed_data';
+
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart';
 
 class MainDatabase {
   final Client _client = Client();
@@ -79,17 +80,24 @@ class MainDatabase {
     return data;
   }
 
-  Future<Future<File>> getPic(String id) async {
+  Future<Uint8List?> getPic(String id) async {
     final storage = Storage(_client);
-    final result = storage.getFile(bucketId: '647a27faaae8cd0f36c4', fileId: id);
 
-    return result;
-    /*
-    const result = storage.getFilePreview('[BUCKET_ID]', '[FILE_ID]');
+    try {
+      final response = await storage.getFilePreview(
+        bucketId: '647a27faaae8cd0f36c4',
+        fileId: id,
+        quality: 25
+      );
 
-console.log(result); // Resource URL
-     */
+      return response;
+    } catch (e) {
+      print('Error retrieving image: $e');
+    }
+    return null;
   }
+
+
 }
 
 
