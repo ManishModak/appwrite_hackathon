@@ -13,6 +13,7 @@ class StudentList extends StatefulWidget {
 }
 
 class _StudentListState extends State<StudentList> {
+
   MainDatabase data = MainDatabase();
   String searchText = '';
   String id = '';
@@ -134,31 +135,52 @@ class _StudentListState extends State<StudentList> {
             ],
           ),
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 16, 10, 0) ,
-              child: TextField(
-                onChanged: onTextChanged ,
-                decoration: textInputDecoration.copyWith(
-                    hintText: "Search",
-                    prefixIcon: const Icon(
-                        Icons.search_outlined,
-                        size: 30
-                    ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 16, 10, 0) ,
+                child: TextField(
+                  onChanged: onTextChanged ,
+                  decoration: textInputDecoration.copyWith(
+                      hintText: "Search",
+                      prefixIcon: const Icon(
+                          Icons.search_outlined,
+                          size: 30
+                      ),
+                  ),
+                  style: const TextStyle(color: Colors.grey, fontSize: 20),
                 ),
-                style: const TextStyle(color: Colors.grey, fontSize: 20),
               ),
-            ),
-            const SizedBox(height: 16.0),
-            Text('Search Text: $searchText')   ,
-            ElevatedButton(
-                onPressed: () {
-                  call();
-                },
-                child: const Text("Submit")),
-            callBack(),
-          ],
+              const SizedBox(height: 20.0),
+              Container(
+                width: 150,
+                height: 55,
+                decoration: BoxDecoration(
+                    gradient: buttonLinearGradient_1,
+                    borderRadius: BorderRadius.circular(10)
+                ),
+                child: ElevatedButton(
+                  onPressed: call,
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      elevation: 0
+                  ),
+                  child:const Text(
+                    "Submit",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 1.5
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              callBack(),
+            ],
+          ),
         ),
       ),
     );
