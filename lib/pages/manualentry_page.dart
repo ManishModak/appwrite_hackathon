@@ -19,15 +19,17 @@ class _ManualEntryState extends State<ManualEntry> {
 
   late Orientation orientation ;
 
-  double customWidthDrawer(Orientation orientation)
+  late double width ;
+
+  double customWidthDrawer(Orientation orientation,double width)
   {
     if(orientation == Orientation.landscape)
     {
-      return 600 ;
+      return width - 100 ;
     }
     else
     {
-      return 300 ;
+      return width - 50 ;
     }
   }
 
@@ -71,6 +73,8 @@ class _ManualEntryState extends State<ManualEntry> {
   @override
   Widget build(BuildContext context) {
 
+    width = MediaQuery. of(context).size.width ;
+
     orientation = MediaQuery.of(context).orientation;
 
     return SafeArea(
@@ -89,7 +93,7 @@ class _ManualEntryState extends State<ManualEntry> {
           ),
         ),
         drawer: Drawer(
-          width: customWidthDrawer(orientation),
+          width: customWidthDrawer(orientation,width),
           backgroundColor: Colors.black,
           child: ListView(
             children: [

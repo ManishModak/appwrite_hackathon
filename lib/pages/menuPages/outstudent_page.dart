@@ -14,6 +14,8 @@ class _OutStudentState extends State<OutStudent> {
 
   late Orientation orientation ;
 
+  late double width ;
+
   final LogDatabase _log = LogDatabase() ;
 
   @override
@@ -25,6 +27,8 @@ class _OutStudentState extends State<OutStudent> {
   Widget build(BuildContext context) {
 
     orientation = MediaQuery.of(context).orientation;
+
+    width = MediaQuery. of(context). size. width ;
 
     return SafeArea(
       child: Scaffold(
