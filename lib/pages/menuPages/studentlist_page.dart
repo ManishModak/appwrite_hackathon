@@ -1,4 +1,6 @@
 
+import 'package:appwrite/appwrite.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mat_security/services/main_database.dart';
 import 'package:flutter/material.dart';
 import 'package:mat_security/common/constants.dart';
@@ -12,7 +14,7 @@ class StudentList extends StatefulWidget {
 
 class _StudentListState extends State<StudentList> {
   MainDatabase data = MainDatabase();
-  String searchText = '';
+  String searchText = '346';
   String id = '';
   String name = '';
   String branch = '';
@@ -25,15 +27,78 @@ class _StudentListState extends State<StudentList> {
       });
   }
 
+  void nullAlert() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.grey,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        title: const Text(
+          'Error',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.error_outline,
+              color: Colors.red,
+              size: 60.0,
+            ),
+            const SizedBox(height: 10.0),
+            Text(
+              '$searchText not found.',
+              style: const TextStyle(
+                fontSize: 18.0,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text(
+              'OK',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> call() async {
-    Map<String, dynamic> stuData = await data.getInfo(id: searchText);
-    setState(() {
-      id = stuData['id'];
-      name = stuData['name'];
-      branch = stuData['branch'];
-      room = stuData['roomNo'];
-      mobile = stuData['mobileNo'];
-    });
+    try {
+      // Code that fetches the document from the database
+      Map<String, dynamic> stuData = await data.getInfo(id: searchText);
+
+      // Process the data
+      setState(() {
+        id = stuData['id'];
+        name = stuData['name'];
+        branch = stuData['branch'];
+        room = stuData['roomNo'];
+        mobile = stuData['mobileNo'];
+      });
+    } catch (e) {
+      if (e is AppwriteException && e.type == 'document_not_found') {
+        nullAlert();
+      } else {
+        // Handle other types of exceptions or errors
+        if (kDebugMode) {
+          print('An error occurred: $e');
+        }
+      }
+    }
   }
 
 
@@ -73,7 +138,7 @@ class _StudentListState extends State<StudentList> {
             const SizedBox(height: 16.0),
             Text('Search Text: $searchText')   ,
             ElevatedButton(
-                onPressed: (){
+                onPressed: () {
                   call();
                 },
                 child: const Text("Submit")),
