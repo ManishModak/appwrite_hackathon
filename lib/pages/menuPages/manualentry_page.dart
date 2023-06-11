@@ -55,18 +55,57 @@ class _ManualEntryState extends State<ManualEntry> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Stack(
+      appBar: AppBar(
+        title: const Text('Manual Entry'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                  gradient: appBarGradient
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
               ),
             ),
-            buildAppBar2("Manual Entry",context),
+            ListTile(
+              title: const Text('New Admin'),
+              onTap: () {
+                Navigator.pushNamed(context, "/newAdmin");
+              },
+            ),
+            ListTile(
+              title: const Text('New Student'),
+              onTap: () {
+                Navigator.pushNamed(context, "/newStudent");
+              },
+            ),
+            ListTile(
+              title: const Text("Student's List"),
+              onTap: () {
+                Navigator.pushNamed(context, "/list");
+              },
+            ),
+            ListTile(
+              title: const Text('Daily Log'),
+              onTap: () {
+                Navigator.pushNamed(context, "/log");
+              },
+            ),
+            ListTile(
+              title: const Text('Not returned'),
+              onTap: () {
+                Navigator.pushNamed(context, "/OutStud");
+              },
+            ),
           ],
-        )
+        ),
       ),
       body: Container(
         padding: const EdgeInsets.all(15),
