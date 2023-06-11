@@ -19,7 +19,7 @@ class _NewAdminState extends State<NewAdmin> {
 
   AdminManagement currentAdmin = AdminManagement() ;
 
-  late String msg ;
+  String msg = ' ';
 
   void submitButton () async{
 
