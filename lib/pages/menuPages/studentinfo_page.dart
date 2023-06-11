@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:appwrite/appwrite.dart';
-import 'package:flutter/foundation.dart';
 import 'package:mat_security/services/main_database.dart';
 import 'package:flutter/material.dart';
 import 'package:mat_security/common/constants.dart';
@@ -14,8 +13,9 @@ class StudentList extends StatefulWidget {
 
 class _StudentListState extends State<StudentList> {
 
+  TextEditingController searchText = TextEditingController() ;
+
   MainDatabase data = MainDatabase();
-  String searchText = '';
   String id = '';
   String name = '';
   String branch = '';
@@ -26,7 +26,7 @@ class _StudentListState extends State<StudentList> {
   Future<void> submitButton() async {
     String value = searchText.text ;
     try {
-      Map<String, dynamic> stuData = await data.getInfo(id: searchText);
+      Map<String, dynamic> stuData = await data.getInfo(id: value);
       var pic = (await data.getPic(id)) as File?;
 
       setState(() {
