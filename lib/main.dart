@@ -23,9 +23,9 @@ void main() async {
     ),
     themeMode: ThemeMode.system,
 
-    initialRoute: '/list', // Set the initial route to '/login'
+    initialRoute: '/info', // Set the initial route to '/login'
     routes: {
-      '/list' : (context) => const StudentInfo(),
+      '/info' : (context) => const StudentInfo(),
       '/newAdmin':(context) => const NewAdmin(),
       '/login': (context) => const Login(), // Route for the login page
       '/newStudent': (context) => const NewStudent(), //Route for the New Hostelite page

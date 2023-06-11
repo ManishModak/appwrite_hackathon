@@ -4,14 +4,14 @@ import 'package:mat_security/services/main_database.dart';
 import 'package:flutter/material.dart';
 import 'package:mat_security/common/constants.dart';
 
-class StudentList extends StatefulWidget {
-  const StudentList({super.key});
+class StudentInfo extends StatefulWidget {
+  const StudentInfo({super.key});
 
   @override
-  State<StudentList> createState() => _StudentListState();
+  State<StudentInfo> createState() => _StudentInfoState();
 }
 
-class _StudentListState extends State<StudentList> {
+class _StudentInfoState extends State<StudentInfo> {
 
   TextEditingController searchText = TextEditingController() ;
 
