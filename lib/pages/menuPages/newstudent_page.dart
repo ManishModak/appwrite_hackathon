@@ -141,15 +141,13 @@ class _NewStudentState extends State<NewStudent> {
                           },
                           child: CircleAvatar(
                             backgroundImage: (studentPic != null) ? FileImage(studentPic!) : null,
-                            radius: 80,
+                            radius: 60,
                             backgroundColor: Colors.grey,
+                            child: const Icon(Icons.account_circle_outlined,size: 120),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  const Divider(
-                    height: 40.0,
                   ),
                   TextFormField(
                     style: const TextStyle(color: Colors.grey, fontSize: 20),
