@@ -34,7 +34,7 @@ class _StudentListState extends State<StudentList> {
   Future<void> call() async {
     try {
       Map<String, dynamic> stuData = await data.getInfo(id: searchText);
-      var pic = (await data.getPic("id")) as File?;
+      var pic = (await data.getPic(id)) as File?;
       setState(() {
         id = stuData['id'];
         name = stuData['name'];
