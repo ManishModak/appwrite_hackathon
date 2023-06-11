@@ -70,51 +70,90 @@ class _ManualEntryState extends State<ManualEntry> {
           ),
         ),
         drawer: Drawer(
+          backgroundColor: Colors.black,
           child: ListView(
-            padding: EdgeInsets.zero,
             children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
+              Container(
+                height: 100,
+                decoration: const BoxDecoration(
                   gradient: appBarGradient
                 ),
-                child: Text(
-                  'Menu',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
+                child: const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text(
+                    'Menu',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      letterSpacing: 1.25
+                    ),
                   ),
                 ),
               ),
-              ListTile(
-                title: const Text('New Admin'),
-                onTap: () {
-                  Navigator.pushNamed(context, "/newAdmin");
-                },
-              ),
-              ListTile(
-                title: const Text('New Student'),
-                onTap: () {
-                  Navigator.pushNamed(context, "/newStudent");
-                },
-              ),
-              ListTile(
-                title: const Text("Student's List"),
-                onTap: () {
-                  Navigator.pushNamed(context, "/list");
-                },
-              ),
-              ListTile(
-                title: const Text('Daily Log'),
-                onTap: () {
-                  Navigator.pushNamed(context, "/log");
-                },
-              ),
-              ListTile(
-                title: const Text('Not returned'),
-                onTap: () {
-                  Navigator.pushNamed(context, "/OutStud");
-                },
-              ),
+              Column(
+                children: [
+                  const SizedBox(height: 30),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 50,
+                          decoration: boxDecoration(),
+                          child: menuCard("New Admin", "newAdmin", context),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 50,
+                          decoration: boxDecoration(),
+                          child: menuCard("New Student","newStudent",context),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 50,
+                          decoration: boxDecoration(),
+                          child: menuCard("Student Info","list",context),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 50,
+                          decoration: boxDecoration(),
+                          child: menuCard("Daily Log","log",context),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 50,
+                          decoration: boxDecoration(),
+                          child: menuCard("Not returned","OutStud",context),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )
             ],
           ),
         ),
