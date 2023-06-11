@@ -14,7 +14,7 @@ class StudentList extends StatefulWidget {
 
 class _StudentListState extends State<StudentList> {
   MainDatabase data = MainDatabase();
-  String searchText = '346';
+  String searchText = '';
   String id = '';
   String name = '';
   String branch = '';
@@ -25,6 +25,28 @@ class _StudentListState extends State<StudentList> {
       setState(() {
         searchText = value ;
       });
+  }
+
+  Future<void> call() async {
+    try {
+      Map<String, dynamic> stuData = await data.getInfo(id: searchText);
+
+      setState(() {
+        id = stuData['id'];
+        name = stuData['name'];
+        branch = stuData['branch'];
+        room = stuData['roomNo'];
+        mobile = stuData['mobileNo'];
+      });
+    } catch (e) {
+      if (e is AppwriteException && e.type == 'document_not_found') {
+        nullAlert();
+      } else {
+        if (kDebugMode) {
+          print('An error occurred: $e');
+        }
+      }
+    }
   }
 
   void nullAlert() {
@@ -76,31 +98,24 @@ class _StudentListState extends State<StudentList> {
     );
   }
 
-  Future<void> call() async {
-    try {
-      // Code that fetches the document from the database
-      Map<String, dynamic> stuData = await data.getInfo(id: searchText);
-
-      // Process the data
-      setState(() {
-        id = stuData['id'];
-        name = stuData['name'];
-        branch = stuData['branch'];
-        room = stuData['roomNo'];
-        mobile = stuData['mobileNo'];
-      });
-    } catch (e) {
-      if (e is AppwriteException && e.type == 'document_not_found') {
-        nullAlert();
-      } else {
-        // Handle other types of exceptions or errors
-        if (kDebugMode) {
-          print('An error occurred: $e');
-        }
-      }
-    }
+  Widget callBack(){
+    return Column(
+      children: [
+        const SizedBox(height: 16.0),
+        const Text('Document Data:'),
+        const SizedBox(height: 16.0),
+        Text('ID: $id'),
+        const SizedBox(height: 16.0),
+        Text('Name: $name')   ,
+        const SizedBox(height: 16.0),
+        Text('Branch: $branch')   ,
+        const SizedBox(height: 16.0),
+        Text('Room: $room')   ,
+        const SizedBox(height: 16.0),
+        Text('Mobile: $mobile'),
+      ],
+    );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -142,19 +157,7 @@ class _StudentListState extends State<StudentList> {
                   call();
                 },
                 child: const Text("Submit")),
-            const SizedBox(height: 16.0),
-            const Text('Document Data:')   ,
-            const SizedBox(height: 16.0),
-            Text('ID: $id')   ,
-            const SizedBox(height: 16.0),
-            Text('Name: $name')   ,
-            const SizedBox(height: 16.0),
-            Text('Branch: $branch')   ,
-            const SizedBox(height: 16.0),
-            Text('Room: $room')   ,
-            const SizedBox(height: 16.0),
-            Text('Mobile: $mobile')   ,
-
+            callBack(),
           ],
         ),
       ),
