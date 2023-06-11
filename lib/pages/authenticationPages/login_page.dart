@@ -104,7 +104,7 @@ class _LoginState extends State<Login> {
                   Row(
                     children: [
                       Expanded(
-                        flex: 5,
+                        flex: 6,
                         child: Container(
                           height: 50,
                           width: 135,
@@ -148,9 +148,9 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                       ),
-                      const Expanded(flex:1,child: SizedBox(width: 15)),
+                      const Expanded(flex:1,child: SizedBox(width: 10)),
                       Expanded(
-                        flex: 5,
+                        flex: 6,
                         child: Container(
                           height: 50,
                           width: 135,

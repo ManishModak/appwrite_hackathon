@@ -46,23 +46,6 @@ class _StudentInfoState extends State<StudentInfo> {
     }
   }
 
-  Widget callBack(){
-    return Column(
-      children: [
-        const SizedBox(height: 20.0),
-        Text('ID: $id'),
-        const SizedBox(height: 16.0),
-        Text('Name: $name')   ,
-        const SizedBox(height: 16.0),
-        Text('Branch: $branch')   ,
-        const SizedBox(height: 16.0),
-        Text('Room: $room')   ,
-        const SizedBox(height: 16.0),
-        Text('Mobile: $mobile'),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -148,13 +131,21 @@ class _StudentInfoState extends State<StudentInfo> {
                     return const CircleAvatar(
                       radius: 50,
                       backgroundColor: Colors.grey,
-                      child: Icon(Icons.account_circle_rounded),
+                      child: Icon(Icons.account_circle_outlined,size: 100,),
                     );
                   }
                 },
               ),
-
-              callBack(),
+                const SizedBox(height: 20.0),
+                Container(decoration: boxDecoration(), child: customCard('ID: $id', context)),
+                const SizedBox(height: 16.0),
+                Container(decoration: boxDecoration() ,child: customCard('Name: $name', context)),
+                const SizedBox(height: 16.0),
+                Container(decoration: boxDecoration() ,child: customCard('Branch: $branch', context)),
+                const SizedBox(height: 16.0),
+                Container(decoration: boxDecoration() ,child: customCard('Room: $room', context)),
+                const SizedBox(height: 16.0),
+                Container(decoration: boxDecoration() ,child: customCard('Mobile: $mobile', context)),
               ],
             ),
           ),

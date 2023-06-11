@@ -90,6 +90,25 @@ Card menuCard(String text,String page,BuildContext context) {
   );
 }
 
+Card customCard(String text,BuildContext context) {
+  return Card(
+    color: Colors.transparent,
+    elevation: 0,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Center(
+      child: Text(
+        text ,
+        style: const TextStyle(
+          fontSize: 20,
+          color: Colors.white,
+        ),
+      ),
+    ),
+  );
+}
+
 AppBar buildAppBar1(String text) {
   return AppBar(
       title: Text(
