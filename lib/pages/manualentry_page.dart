@@ -147,7 +147,7 @@ class _ManualEntryState extends State<ManualEntry> {
                         child: Container(
                           height: 50,
                           decoration: boxDecoration(),
-                          child: menuCard("Student Info","list",context),
+                          child: menuCard("Student Info","info",context),
                         ),
                       ),
                     ],
