@@ -103,92 +103,98 @@ class _LoginState extends State<Login> {
                   const SizedBox(height: 25.0),
                   Row(
                     children: [
-                      Container(
-                        height: 50,
-                        width: 135,
-                        decoration: BoxDecoration(
-                          gradient: buttonLinearGradient_2,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              elevation: 0
+                      Expanded(
+                        flex: 5,
+                        child: Container(
+                          height: 50,
+                          width: 135,
+                          decoration: BoxDecoration(
+                            gradient: buttonLinearGradient_2,
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          child: const Text(
-                            'SIGN UP',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                letterSpacing: 1.25,
-                                fontWeight: FontWeight.w400
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                elevation: 0
                             ),
+                            child: const Text(
+                              'SIGN UP',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                  letterSpacing: 1.25,
+                                  fontWeight: FontWeight.w400
+                              ),
+                            ),
+                            onPressed: () async{
+                              if(_formKey.currentState!.validate()){
+                                setState(() => loading = true);
+                                dynamic result = await _auth.registerWithEmailAndPassword(email.text.trim(), password.text);
+                                if(result == null){
+                                  setState(() {
+                                    loading = false ;
+                                    error = 'Could not sign up with those credentials' ;
+                                  });
+                                }
+                                else
+                                {
+                                  setState(() {
+                                    loading = false ;
+                                    error = 'Signed up successfully. Contact admin for access.' ;
+                                  });
+                                }
+                              }
+                            },
                           ),
-                          onPressed: () async{
-                            if(_formKey.currentState!.validate()){
-                              setState(() => loading = true);
-                              dynamic result = await _auth.registerWithEmailAndPassword(email.text.trim(), password.text);
-                              if(result == null){
-                                setState(() {
-                                  loading = false ;
-                                  error = 'Could not sign up with those credentials' ;
-                                });
-                              }
-                              else
-                              {
-                                setState(() {
-                                  loading = false ;
-                                  error = 'Signed up successfully. Contact admin for access.' ;
-                                });
-                              }
-                            }
-                          },
                         ),
                       ),
-                      const SizedBox(width: 15),
-                      Container(
-                        height: 50,
-                        width: 135,
-                        decoration: BoxDecoration(
-                          gradient: buttonLinearGradient_1,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              elevation: 0
+                      const Expanded(flex:1,child: SizedBox(width: 15)),
+                      Expanded(
+                        flex: 5,
+                        child: Container(
+                          height: 50,
+                          width: 135,
+                          decoration: BoxDecoration(
+                            gradient: buttonLinearGradient_1,
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          child: const Text(
-                            'LOGIN',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                letterSpacing: 1.25,
-                                fontWeight: FontWeight.w400
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                elevation: 0
                             ),
+                            child: const Text(
+                              'LOGIN',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                  letterSpacing: 1.25,
+                                  fontWeight: FontWeight.w400
+                              ),
+                            ),
+                            onPressed: () async{
+                              if(_formKey.currentState!.validate()){
+                                setState(() => loading = true);
+                                dynamic result = await _auth.signInWithEmailAndPassword(email.text.trim(), password.text);
+                                if(result == "invalid"){
+                                  setState(() {
+                                    loading = false ;
+                                    error = 'Could not sign in with those credentials' ;
+                                  });
+                                }
+                                else if(result == "unauthorised"){
+                                  setState(() {
+                                    loading = false ;
+                                    error = 'You Do not have access to app. Contact admin.' ;
+                                  });
+                                }
+                                else
+                                {
+                                  nextPage();
+                                }
+                              }
+                            },
                           ),
-                          onPressed: () async{
-                            if(_formKey.currentState!.validate()){
-                              setState(() => loading = true);
-                              dynamic result = await _auth.signInWithEmailAndPassword(email.text.trim(), password.text);
-                              if(result == "invalid"){
-                                setState(() {
-                                  loading = false ;
-                                  error = 'Could not sign in with those credentials' ;
-                                });
-                              }
-                              else if(result == "unauthorised"){
-                                setState(() {
-                                  loading = false ;
-                                  error = 'You Do not have access to app. Contact admin.' ;
-                                });
-                              }
-                              else
-                              {
-                                nextPage();
-                              }
-                            }
-                          },
                         ),
                       ),
                     ],
