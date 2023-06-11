@@ -12,8 +12,24 @@ class ManualEntry extends StatefulWidget {
 class _ManualEntryState extends State<ManualEntry> {
 
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
   final TextEditingController id = TextEditingController();
+
   String messageShowed = '';
+
+  late Orientation orientation ;
+
+  double customWidthDrawer(Orientation orientation)
+  {
+    if(orientation == Orientation.landscape)
+    {
+      return 600 ;
+    }
+    else
+    {
+      return 300 ;
+    }
+  }
 
   bool _isValidId(String id) {
     final RegExp validIdRegex = RegExp(r'^[a-zA-Z0-9][a-zA-Z0-9_]*$');
@@ -54,6 +70,9 @@ class _ManualEntryState extends State<ManualEntry> {
 
   @override
   Widget build(BuildContext context) {
+
+    orientation = MediaQuery.of(context).orientation;
+
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
@@ -70,6 +89,7 @@ class _ManualEntryState extends State<ManualEntry> {
           ),
         ),
         drawer: Drawer(
+          width: customWidthDrawer(orientation),
           backgroundColor: Colors.black,
           child: ListView(
             children: [
