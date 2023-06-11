@@ -51,9 +51,7 @@ class _StudentInfoState extends State<StudentInfo> {
   Widget callBack(){
     return Column(
       children: [
-        const SizedBox(height: 16.0),
-        const Text('Document Data',style: TextStyle(fontSize: 20),),
-        const SizedBox(height: 16.0),
+        const SizedBox(height: 20.0),
         Text('ID: $id'),
         const SizedBox(height: 16.0),
         Text('Name: $name')   ,
@@ -135,6 +133,7 @@ class _StudentInfoState extends State<StudentInfo> {
                     Expanded(child: Divider(thickness: 1,color: Colors.redAccent,))
                   ],
                 ),
+                const SizedBox(height: 20.0),
                 CircleAvatar(
                   backgroundImage: (stuPic != null) ? FileImage(stuPic!) : null,
                   radius: 80,
