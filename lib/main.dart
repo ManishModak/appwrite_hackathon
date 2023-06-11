@@ -4,7 +4,7 @@ import 'package:mat_security/pages/authenticationPages//login_page.dart';
 import 'package:mat_security/pages/manualentry_page.dart';
 import 'package:mat_security/pages/menuPages/newadmin_page.dart';
 import 'package:mat_security/pages/menuPages/outstudent_page.dart';
-import 'package:mat_security/pages/menuPages/studentlist_page.dart';
+import 'package:mat_security/pages/menuPages/studentinfo_page.dart';
 import 'package:mat_security/pages/menuPages/newstudent_page.dart';
 import 'package:mat_security/pages/menuPages/dailylog_page.dart';
 
