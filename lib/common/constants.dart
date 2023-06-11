@@ -142,3 +142,25 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(String me
     ),
   );
 }
+
+EdgeInsets customPadding(Orientation orientation) {
+  if(orientation == Orientation.landscape)
+  {
+    return const EdgeInsets.fromLTRB(31,5,31,5) ;
+  }
+  else
+  {
+    return const EdgeInsets.all(8) ;
+  }
+}
+
+TextStyle customText(Orientation orientation) {
+  if(orientation == Orientation.landscape)
+  {
+    return const TextStyle(fontSize: 15,color: Colors.white) ;
+  }
+  else
+  {
+    return  const TextStyle(color: Colors.white) ;
+  }
+}
