@@ -25,7 +25,7 @@ void main() async {
 
     initialRoute: '/list', // Set the initial route to '/login'
     routes: {
-      '/list' : (context) => const StudentList(),
+      '/list' : (context) => const StudentInfo(),
       '/newAdmin':(context) => const NewAdmin(),
       '/login': (context) => const Login(), // Route for the login page
       '/newStudent': (context) => const NewStudent(), //Route for the New Hostelite page
