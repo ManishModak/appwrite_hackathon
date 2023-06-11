@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
+import 'package:flutter/foundation.dart';
 
 class MainDatabase {
   final Client _client = Client();
@@ -75,6 +79,21 @@ class MainDatabase {
     );
     Map<String, dynamic> data = document.data;
     return data;
+  }
+
+  Future<Future<Uint8List>> getPic(String id) async {
+    final storage = Storage(_client);
+    final result = storage.getFilePreview(bucketId: '647a27faaae8cd0f36c4', fileId: 'random',);
+
+    if (kDebugMode) {
+      print(result);
+    }
+    return result;
+    /*
+    const result = storage.getFilePreview('[BUCKET_ID]', '[FILE_ID]');
+
+console.log(result); // Resource URL
+     */
   }
 }
 

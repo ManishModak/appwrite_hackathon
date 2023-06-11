@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mat_security/services/main_database.dart';
@@ -21,6 +23,7 @@ class _StudentListState extends State<StudentList> {
   String branch = '';
   String room = '';
   String mobile = '';
+  File? stuPic;
 
   void onTextChanged(String value){
       setState(() {
@@ -31,13 +34,14 @@ class _StudentListState extends State<StudentList> {
   Future<void> call() async {
     try {
       Map<String, dynamic> stuData = await data.getInfo(id: searchText);
-
+      var pic = (await data.getPic("id")) as File?;
       setState(() {
         id = stuData['id'];
         name = stuData['name'];
         branch = stuData['branch'];
         room = stuData['roomNo'];
         mobile = stuData['mobileNo'];
+        stuPic = pic;
       });
     } catch (e) {
       if (e is AppwriteException && e.type == 'document_not_found') {
@@ -178,6 +182,11 @@ class _StudentListState extends State<StudentList> {
                 ),
               ),
               const SizedBox(height: 20.0),
+              CircleAvatar(
+                backgroundImage: (stuPic != null) ? FileImage(stuPic!) : null,
+                radius: 80,
+                backgroundColor: Colors.grey,
+              ),
               callBack(),
             ],
           ),

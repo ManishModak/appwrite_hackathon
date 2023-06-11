@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mat_security/pages/authenticationPages//login_page.dart';
 import 'package:mat_security/pages/manualentry_page.dart';
@@ -7,11 +8,15 @@ import 'package:mat_security/pages/menuPages/outstudent_page.dart';
 import 'package:mat_security/pages/menuPages/studentlist_page.dart';
 import 'package:mat_security/pages/menuPages/newstudent_page.dart';
 import 'package:mat_security/pages/menuPages/dailylog_page.dart';
+import 'package:mat_security/services/main_database.dart';
 
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  MainDatabase main = MainDatabase();
+  main.getPic("random");
 
   runApp(MaterialApp(
 
@@ -23,7 +28,7 @@ void main() async {
     ),
     themeMode: ThemeMode.system,
 
-    initialRoute: '/entry', // Set the initial route to '/login'
+    initialRoute: '/list', // Set the initial route to '/login'
     routes: {
       '/list' : (context) => const StudentList(),
       '/newAdmin':(context) => const NewAdmin(),
