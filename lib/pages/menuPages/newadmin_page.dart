@@ -19,14 +19,16 @@ class _NewAdminState extends State<NewAdmin> {
 
   AdminManagement currentAdmin = AdminManagement() ;
 
-  String msg = ' ';
+  String messageShowed = '';
 
   void submitButton () async{
 
+    String msg = await currentAdmin.newAdmin(email: email.text) ;
+
     if(formkey.currentState!.validate()) {
 
-      setState(() async{
-        msg = await currentAdmin.newAdmin(email: email.text) ;
+      setState(() {
+        messageShowed = msg ;
         email.clear() ;
       });
 
@@ -77,7 +79,7 @@ class _NewAdminState extends State<NewAdmin> {
                     ),
                     const SizedBox(height:20.0),
                     Text(
-                      msg ,
+                      messageShowed ,
                       style: const TextStyle(color: Colors.red, fontSize: 16.0),
                     ),
                     const SizedBox(height:20.0),
