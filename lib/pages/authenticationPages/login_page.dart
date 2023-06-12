@@ -109,7 +109,7 @@ class _LoginState extends State<Login> {
                           height: 50,
                           width: 135,
                           decoration: BoxDecoration(
-                            gradient: buttonLinearGradient_2,
+                            gradient: buttonRadialGradient_1,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: ElevatedButton(
@@ -155,7 +155,7 @@ class _LoginState extends State<Login> {
                           height: 50,
                           width: 135,
                           decoration: BoxDecoration(
-                            gradient: buttonLinearGradient_1,
+                            gradient: buttonRadialGradient_1,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: ElevatedButton(
