@@ -124,12 +124,12 @@ class _StudentInfoState extends State<StudentInfo> {
                     return const Text('Error loading image');
                   } else if (snapshot.hasData && snapshot.data != null) {
                     return CircleAvatar(
-                      radius: 50,
+                      radius: 60,
                       backgroundImage: MemoryImage(snapshot.data!),
                     );
                   } else {
                     return const CircleAvatar(
-                      radius: 50,
+                      radius: 60,
                       backgroundColor: Colors.grey,
                       child: Icon(Icons.account_circle_outlined,size: 100,),
                     );
@@ -137,15 +137,99 @@ class _StudentInfoState extends State<StudentInfo> {
                 },
               ),
                 const SizedBox(height: 20.0),
-                Container(decoration: boxDecoration(), child: customCard('ID: $id', context)),
+                Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[850],
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: customCard('ID: $id', context),
+                ),
                 const SizedBox(height: 16.0),
-                Container(decoration: boxDecoration() ,child: customCard('Name: $name', context)),
+                Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[850],
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: customCard('Name: $name', context),
+                ),
                 const SizedBox(height: 16.0),
-                Container(decoration: boxDecoration() ,child: customCard('Branch: $branch', context)),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[850],
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: customCard('Branch: $branch', context),
+                        ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    Expanded(
+                      child: Container(
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[850],
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: customCard('Room: $room', context),
+                      ),
+                    )
+                  ],
+                ),
+
                 const SizedBox(height: 16.0),
-                Container(decoration: boxDecoration() ,child: customCard('Room: $room', context)),
-                const SizedBox(height: 16.0),
-                Container(decoration: boxDecoration() ,child: customCard('Mobile: $mobile', context)),
+                Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[850],
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: customCard('Mobile: $mobile', context),
+                ),
               ],
             ),
           ),
