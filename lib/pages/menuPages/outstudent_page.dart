@@ -98,7 +98,7 @@ class _OutStudentState extends State<OutStudent> {
                       )),
                       DataColumn(label: Padding(
                         padding: customPadding(orientation,width) ,
-                        child: Text('In time', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                        child: Text('Mobile No', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
                       )),
                     ],
 
@@ -112,13 +112,15 @@ class _OutStudentState extends State<OutStudent> {
                         color = Colors.redAccent;
                       }
 
+                      var outTime = data['date'][6] + data['date'][7] + "/" + data['date'][4] + data['date'][5] + " " + data['outTime'];
+
                       return DataRow(
                         cells: [
                           DataCell(Center(child: Text(data['id'], style: TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
                           DataCell(Center(child: Text(data['name'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
                           DataCell(Center(child: Text(data['roomNo'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
-                          DataCell(Center(child: Text(data['outTime'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
-                          DataCell(Center(child: Text(inTime, style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
+                          DataCell(Center(child: Text(outTime, style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
+                          DataCell(Center(child: Text(data['mobileNo'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
                         ],
                       );
                     }).toList(),

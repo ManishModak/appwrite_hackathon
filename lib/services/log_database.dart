@@ -23,11 +23,13 @@ class LogDatabase {
     String formattedDate = DateFormat('yyyyMMdd').format(currentTime);
     String studName;
     String roomNo;
+    String mobileNo;
     //check if id exists in database
     try{
     final stud = await _database.getDocument(databaseId: userDId, collectionId: studCollId, documentId: id);
     studName = stud.data['name'];
     roomNo = stud.data['roomNo'];
+    mobileNo = stud.data['mobileNo'];
       //print('stud found');
     }
     catch (e){
@@ -84,6 +86,7 @@ class LogDatabase {
           'outTime':formattedTime,
           'name':studName,
           'roomNo':roomNo,
+          'mobileNo':mobileNo,
           'inTime':'null'
         }
         );
@@ -92,7 +95,7 @@ class LogDatabase {
       }
 
     }catch (e){
-      //print(e);
+      // print(e);
       return 'An error occured';
     }
   }
