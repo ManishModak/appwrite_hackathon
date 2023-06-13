@@ -72,10 +72,18 @@ let payload;
     });
   }, function (error) {
     console.log(error);
-    res.json({
-      status: "error",
-      msg: error
-    });
+    if(error.type=='team_invite_already_exists'){
+      res.json({
+        status: "error",
+        msg: "Admin already exist."
+      });
+    }
+    else{
+      res.json({
+        status: "error",
+        msg: "An error occured. contact system admin."
+      });
+    }
   });
 
 
