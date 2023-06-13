@@ -63,5 +63,8 @@ In this project almost all of the appwrite services are used.
 
 https://github.com/ManishModak/Appwrite-Hackathon
 
+## APK LINK
+https://github.com/ManishModak/Appwrite-Hackathon/releases/tag/v1.0
+
 ## Demo Link
 
