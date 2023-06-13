@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mat_security">
    <application
-        android:label="mat_security"
+        android:label="MAT SECURITY"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
