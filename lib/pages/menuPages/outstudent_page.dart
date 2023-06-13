@@ -46,84 +46,87 @@ class _OutStudentState extends State<OutStudent> {
             ],
           ),
         ),
-        body: FutureBuilder<List<Document>>(
-          future: _log.getNotReturned() ,
-          builder: (BuildContext context, AsyncSnapshot<List<Document>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            }
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+          child: FutureBuilder<List<Document>>(
+            future: _log.getNotReturned() ,
+            builder: (BuildContext context, AsyncSnapshot<List<Document>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              }
 
-            if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            }
+              if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              }
 
-            final documents = snapshot.data;
+              final documents = snapshot.data;
 
-            if (documents == null || documents.isEmpty) {
-              return const Center(
-                child: Text(
-                  "NO DATA AVAILABLE",
-                  style: TextStyle(
-                    fontSize: 20,
-                    letterSpacing: 1.25,
+              if (documents == null || documents.isEmpty) {
+                return const Center(
+                  child: Text(
+                    "NO DATA AVAILABLE",
+                    style: TextStyle(
+                      fontSize: 20,
+                      letterSpacing: 1.25,
+                    ),
+                  ),
+                );
+              }
+
+              return SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: DataTable(
+                    border: TableBorder.all(color: Colors.white), // Border color for cell borders
+                    columns: [
+                      DataColumn(label: Padding(
+                        padding: customPadding(orientation,width) ,
+                        child: Text('ID', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      )),
+                      DataColumn(label: Padding(
+                        padding: customPadding(orientation,width) ,
+                        child: Text('Name', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      )),
+                      DataColumn(label: Padding(
+                        padding: customPadding(orientation,width) ,
+                        child: Text('Room', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      )),
+                      DataColumn(label: Padding(
+                        padding: customPadding(orientation,width) ,
+                        child: Text('Out time', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      )),
+                      DataColumn(label: Padding(
+                        padding: customPadding(orientation,width) ,
+                        child: Text('In time', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      )),
+                    ],
+
+                    rows: documents.map((document) {
+                      final data = document.data;
+
+                      var inTime = data['inTime'];
+                      Color color = Colors.greenAccent;
+                      if(inTime == 'null'){
+                        inTime = '';
+                        color = Colors.redAccent;
+                      }
+
+                      return DataRow(
+                        cells: [
+                          DataCell(Center(child: Text(data['id'], style: TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
+                          DataCell(Center(child: Text(data['name'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
+                          DataCell(Center(child: Text(data['roomNo'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
+                          DataCell(Center(child: Text(data['outTime'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
+                          DataCell(Center(child: Text(inTime, style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
+                        ],
+                      );
+                    }).toList(),
                   ),
                 ),
               );
-            }
-
-            return SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: DataTable(
-                  border: TableBorder.all(color: Colors.white), // Border color for cell borders
-                  columns: [
-                    DataColumn(label: Padding(
-                      padding: customPadding(orientation) ,
-                      child: Text('ID', style: customText(orientation)),
-                    )),
-                    DataColumn(label: Padding(
-                      padding: customPadding(orientation) ,
-                      child: Text('Name', style: customText(orientation)),
-                    )),
-                    DataColumn(label: Padding(
-                      padding: customPadding(orientation) ,
-                      child: Text('Room', style: customText(orientation)),
-                    )),
-                    DataColumn(label: Padding(
-                      padding: customPadding(orientation) ,
-                      child: Text('Out time', style: customText(orientation)),
-                    )),
-                    DataColumn(label: Padding(
-                      padding: customPadding(orientation) ,
-                      child: Text('In time', style: customText(orientation)),
-                    )),
-                  ],
-
-                  rows: documents.map((document) {
-                    final data = document.data;
-
-                    var inTime = data['inTime'];
-                    Color color = Colors.greenAccent;
-                    if(inTime == 'null'){
-                      inTime = '';
-                      color = Colors.redAccent;
-                    }
-
-                    return DataRow(
-                      cells: [
-                        DataCell(Center(child: Text(data['id'], style: TextStyle(color: color)))),
-                        DataCell(Center(child: Text(data['name'], style:  TextStyle(color: color)))),
-                        DataCell(Center(child: Text(data['roomNo'], style:  TextStyle(color: color)))),
-                        DataCell(Center(child: Text(data['outTime'], style:  TextStyle(color: color)))),
-                        DataCell(Center(child: Text(inTime, style:  TextStyle(color: color)))),
-                      ],
-                    );
-                  }).toList(),
-                ),
-              ),
-            );
-          },
+            },
+          ),
         ),
       ),
     );

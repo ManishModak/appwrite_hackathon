@@ -120,37 +120,43 @@ class _StudentInfoState extends State<StudentInfo> {
                   borderRadius: BorderRadius.circular(16),
                   gradient: buttonRadialGradient_1
                 ),
-                child: FutureBuilder<Uint8List?>(
-                  future: data.getPic(id),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else if (snapshot.hasError) {
-                      return const Text('Error loading image');
-                    } else if (snapshot.hasData && snapshot.data != null) {
-                      return Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                        child: CircleAvatar(
-                          radius: 60,
-                          backgroundImage: MemoryImage(snapshot.data!),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(40, 12, 40, 12),
+                  child: Column(
+                    children: [
+                      FutureBuilder<Uint8List?>(
+                        future: data.getPic(id),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return const Text('Error loading image');
+                          } else if (snapshot.hasData && snapshot.data != null) {
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              child: CircleAvatar(
+                                radius: 60,
+                                backgroundImage: MemoryImage(snapshot.data!),
+                              ),
+                            );
+                          } else {
+                            return const Icon(Icons.account_circle_outlined,size: 130,color: Colors.black,);
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        name,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
                         ),
-                      );
-                    } else {
-                      return const Icon(Icons.account_circle_outlined,size: 130,color: Colors.black,);
-                    }
-                  },
+                      ),
+                    ],
+                  ),
                 ),
               ),
                 const SizedBox(height: 20.0),
-                Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[850],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: customCard('Name: $name', context),
-                ),
-                const SizedBox(height: 16.0),
                 Container(
                   height: 40,
                   decoration: BoxDecoration(

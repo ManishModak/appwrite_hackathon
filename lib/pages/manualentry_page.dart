@@ -29,7 +29,7 @@ class _ManualEntryState extends State<ManualEntry> {
     }
     else
     {
-      return width - 50 ;
+      return width - 75 ;
     }
   }
 

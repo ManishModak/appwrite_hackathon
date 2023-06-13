@@ -162,10 +162,10 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(String me
   );
 }
 
-EdgeInsets customPadding(Orientation orientation) {
+EdgeInsets customPadding(Orientation orientation,double width) {
   if(orientation == Orientation.landscape)
   {
-    return const EdgeInsets.fromLTRB(31,5,31,5) ;
+    return EdgeInsets.fromLTRB((width/6),5,(width/6),5) ;
   }
   else
   {
@@ -176,10 +176,21 @@ EdgeInsets customPadding(Orientation orientation) {
 TextStyle customText(Orientation orientation) {
   if(orientation == Orientation.landscape)
   {
-    return const TextStyle(fontSize: 15,color: Colors.white) ;
+    return const TextStyle(fontSize: 30,color: Colors.white) ;
   }
   else
   {
     return  const TextStyle(color: Colors.white) ;
+  }
+}
+
+double customFontSize(Orientation orientation,double width) {
+  if(orientation == Orientation.landscape)
+  {
+    return (width/12)-20 ;
+  }
+  else
+  {
+    return width/24 ;
   }
 }
