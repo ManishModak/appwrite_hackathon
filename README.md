@@ -13,9 +13,13 @@
 
 MAT SECURITY is an easy-to-use mobile app that revolutionises hostel security management. With its seamless interface, it allows security guards to efficiently track the entry and exit of students. The app enables the creation and management of student profiles, offers comprehensive views of student details, and provides daily logs for monitoring activities. Additionally, MAT SECURITY highlights students who haven't returned, ensuring enhanced safety and accountability in hostel environments. Experience a new level of security with MAT SECURITY.
 
-MAT SECURITY is a professionally developed mobile application built using the Flutter framework and powered by the Appwrite cloud backend. Leveraging the versatility of Flutter, the app offers a seamless and responsive user interface across both iOS and Android platforms. With Appwrite Cloud, the app benefits from secure and scalable backend services, including authentication, database management, real-time updates, and file storage. By combining the power of Flutter and the reliability of Appwrite Cloud, MAT SECURITY delivers a robust and efficient solution for hostel security management.
+We are a group of Computer Engineering students pursuing our bachelor's degree. As hostel residents ourselves, we experienced the inefficiencies of manual in-out entry processes in our college hostel, where entries were recorded on paper registers, causing delays and inconvenience. Additionally, security guards faced challenges in identifying students who hadn't returned after 9pm, requiring manual cross-checking in multiple registers.
+
+To address these issues, we embarked on a project initially aimed at solving this problem as part of our university's PBL project. However, upon discovering the Appwrite hackathon, we decided to enhance and upgrade our solution. We transitioned our entire backend infrastructure from Firebase to Appwrite. While initially a little challenging, the process became enjoyable and straightforward as we delved into the comprehensive documentation provided by Appwrite.
 
 ## Tech Stack
+
+MAT SECURITY is a professionally developed mobile application built using the Flutter framework and powered by the Appwrite cloud backend. Leveraging the versatility of Flutter, the app offers a seamless and responsive user interface across both iOS and Android platforms. With Appwrite Cloud, the app benefits from secure and scalable backend services, including authentication, database management, real-time updates, and file storage. By combining the power of Flutter and the reliability of Appwrite Cloud, MAT SECURITY delivers a robust and efficient solution for hostel security management.
 
 - Flutter
 - Appwrite Cloud
@@ -39,13 +43,13 @@ In this project almost all of the appwrite services are used.
 
     As we knew, Appwrite didn't provide a direct subdocument feature, which makes categorising documents challenging.
     - Solution: We took advantage of the query feature to filter out the required documents, reducing network load.
-    - Remark: The query feature is valuable as it allows us to fetch specific data without downloading the entire document set.
-
+    - Remark: The query feature is valuable as it allows us to fetch specific data without downloading the entire document set.  
+     
 2. Manual Creation of Database and Collection:
 
     Unlike Firebase Firestore, where a database is created automatically if referenced, Appwrite requires manual creation of databases and collections.
     - Solution: We have modified our database structure to utilise a single database per organisation and a single collection for each data set.
-    - Remark: With the query feature, we can avoid the need for multiple collections, simplifying our database structure. Also, this restriction helped us keep all documents well formatted.
+    - Remark: With the query feature, we can avoid the need for multiple collections, simplifying our database structure. Also, this restriction helped us keep all documents well formatted.   
 
 3. Create Team Membership :
 
