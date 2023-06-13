@@ -60,11 +60,13 @@ In this project almost all of the appwrite services are used.
 
 
 ## Public Code Repo
-
 https://github.com/ManishModak/Appwrite-Hackathon
 
 ## APK LINK
 https://github.com/ManishModak/Appwrite-Hackathon/releases/tag/v1.0
+
+## BLOG LINK
+https://fadkeabhi.hashnode.dev/mat-security-appwrite-hashnode-hackathon
 
 ## Demo Link
 https://youtu.be/rKfZDFi8gdk
