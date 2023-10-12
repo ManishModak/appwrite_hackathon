@@ -1,4 +1,3 @@
-
 import 'dart:typed_data';
 
 import 'package:appwrite/appwrite.dart';
@@ -11,8 +10,10 @@ class MainDatabase {
 
   MainDatabase() {
     _client
-        .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
-        .setProject('6479bcbb10618eda232a'); // Replace with your Appwrite project ID
+        .setEndpoint(
+            'https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
+        .setProject(
+            '6479bcbb10618eda232a'); // Replace with your Appwrite project ID
   }
 
   Future<void> addStudent({
@@ -48,7 +49,8 @@ class MainDatabase {
     return data;
   }
 
-  Future<Map<String, dynamic>> updateRoom({required String id, required String room}) async {
+  Future<Map<String, dynamic>> updateRoom(
+      {required String id, required String room}) async {
     final document = await _database.updateDocument(
       collectionId: cID,
       documentId: id,
@@ -59,7 +61,8 @@ class MainDatabase {
     return data;
   }
 
-  Future<Map<String, dynamic>> updateBranch({required String id, required String branch}) async {
+  Future<Map<String, dynamic>> updateBranch(
+      {required String id, required String branch}) async {
     final document = await _database.updateDocument(
       databaseId: dID,
       collectionId: cID,
@@ -85,10 +88,7 @@ class MainDatabase {
 
     try {
       final response = await storage.getFilePreview(
-        bucketId: '647a27faaae8cd0f36c4',
-        fileId: id,
-        quality: 25
-      );
+          bucketId: '647a27faaae8cd0f36c4', fileId: id, quality: 25);
 
       return response;
     } catch (e) {
@@ -96,8 +96,4 @@ class MainDatabase {
     }
     return null;
   }
-
-
 }
-
-

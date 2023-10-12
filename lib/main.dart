@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mat_security/pages/authenticationPages//login_page.dart';
 import 'package:mat_security/pages/manualentry_page.dart';
@@ -9,12 +8,9 @@ import 'package:mat_security/pages/menuPages/newstudent_page.dart';
 import 'package:mat_security/pages/menuPages/dailylog_page.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
 
   runApp(MaterialApp(
-
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       brightness: Brightness.dark,
@@ -25,13 +21,14 @@ void main() async {
 
     initialRoute: '/login', // Set the initial route to '/login'
     routes: {
-      '/info' : (context) => const StudentInfo(),
-      '/newAdmin':(context) => const NewAdmin(),
+      '/info': (context) => const StudentInfo(),
+      '/newAdmin': (context) => const NewAdmin(),
       '/login': (context) => const Login(), // Route for the login page
-      '/newStudent': (context) => const NewStudent(), //Route for the New Hostelite page
-      '/log':(context) => const DailyLog(),
-      '/entry':(context) => const ManualEntry(),
-      '/OutStud':(context) => const OutStudent()
+      '/newStudent': (context) =>
+          const NewStudent(), //Route for the New Hostelite page
+      '/log': (context) => const DailyLog(),
+      '/entry': (context) => const ManualEntry(),
+      '/OutStud': (context) => const OutStudent()
     },
   ));
 }

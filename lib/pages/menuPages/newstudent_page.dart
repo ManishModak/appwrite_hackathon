@@ -24,7 +24,7 @@ class _NewStudentState extends State<NewStudent> {
   final TextEditingController branch = TextEditingController();
   final TextEditingController mobileNo = TextEditingController();
 
-  File? studentPic ;
+  File? studentPic;
   double percentage = 0;
 
   @override
@@ -38,12 +38,13 @@ class _NewStudentState extends State<NewStudent> {
   }
 
   void _submitForm() async {
-
     MainDatabase student = MainDatabase();
 
     final client = Client()
-        .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
-        .setProject('6479bcbb10618eda232a'); // Replace with your Appwrite project ID
+        .setEndpoint(
+            'https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
+        .setProject(
+            '6479bcbb10618eda232a'); // Replace with your Appwrite project ID
     final storage = Storage(client);
 
     final storageFile = await storage.createFile(
@@ -53,7 +54,8 @@ class _NewStudentState extends State<NewStudent> {
         contentType: 'image/jpeg',
       ),
       bucketId: '647a27faaae8cd0f36c4',
-      fileId: id.text.replaceAll(RegExp(r'[^a-zA-Z0-9_.-]'), '_'), // Replace special characters with underscores
+      fileId: id.text.replaceAll(RegExp(r'[^a-zA-Z0-9_.-]'),
+          '_'), // Replace special characters with underscores
     );
 
     final fileId = storageFile.$id; // Use the file ID returned from createFile
@@ -79,7 +81,6 @@ class _NewStudentState extends State<NewStudent> {
       branch.clear();
       mobileNo.clear();
     });
-
   }
 
   @override
@@ -101,7 +102,8 @@ class _NewStudentState extends State<NewStudent> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
             child: Form(
               key: _formKey,
               child: Column(
@@ -117,7 +119,8 @@ class _NewStudentState extends State<NewStudent> {
                             value: percentage,
                             backgroundColor: Colors.black45,
                             strokeWidth: 5,
-                            valueColor: const AlwaysStoppedAnimation<Color>(Colors.greenAccent),
+                            valueColor: const AlwaysStoppedAnimation<Color>(
+                                Colors.greenAccent),
                           ),
                         ),
                         CupertinoButton(
@@ -126,7 +129,8 @@ class _NewStudentState extends State<NewStudent> {
                               percentage = 0;
                             });
 
-                            final selectedImage = await ImagePicker().pickImage(source: ImageSource.camera);
+                            final selectedImage = await ImagePicker()
+                                .pickImage(source: ImageSource.camera);
 
                             if (selectedImage != null) {
                               File convertedImage = File(selectedImage.path);
@@ -140,10 +144,13 @@ class _NewStudentState extends State<NewStudent> {
                             }
                           },
                           child: CircleAvatar(
-                            backgroundImage: (studentPic != null) ? FileImage(studentPic!) : null,
+                            backgroundImage: (studentPic != null)
+                                ? FileImage(studentPic!)
+                                : null,
                             radius: 60,
                             backgroundColor: Colors.grey,
-                            child: const Icon(Icons.account_circle_outlined,size: 120),
+                            child: const Icon(Icons.account_circle_outlined,
+                                size: 120),
                           ),
                         ),
                       ],
@@ -152,35 +159,43 @@ class _NewStudentState extends State<NewStudent> {
                   TextFormField(
                     style: const TextStyle(color: Colors.grey, fontSize: 20),
                     decoration: textInputDecoration.copyWith(hintText: "ID"),
-                    validator: (val) => val == null || val.isEmpty ? "Enter ID" : null,
+                    validator: (val) =>
+                        val == null || val.isEmpty ? "Enter ID" : null,
                     controller: id,
                   ),
                   const SizedBox(height: 20.0),
                   TextFormField(
                     style: const TextStyle(color: Colors.grey, fontSize: 20),
                     decoration: textInputDecoration.copyWith(hintText: "Name"),
-                    validator: (val) => val == null || val.isEmpty ? "Enter Name" : null,
+                    validator: (val) =>
+                        val == null || val.isEmpty ? "Enter Name" : null,
                     controller: name,
                   ),
                   const SizedBox(height: 20.0),
                   TextFormField(
                     style: const TextStyle(color: Colors.grey, fontSize: 20),
-                    decoration: textInputDecoration.copyWith(hintText: "Room No"),
-                    validator: (val) => val == null || val.isEmpty ? "Enter Room No" : null,
+                    decoration:
+                        textInputDecoration.copyWith(hintText: "Room No"),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? "Enter Room No" : null,
                     controller: roomNo,
                   ),
                   const SizedBox(height: 20.0),
                   TextFormField(
                     style: const TextStyle(color: Colors.grey, fontSize: 20),
-                    decoration: textInputDecoration.copyWith(hintText: "Branch"),
-                    validator: (val) => val == null || val.isEmpty ? "Enter Branch" : null,
+                    decoration:
+                        textInputDecoration.copyWith(hintText: "Branch"),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? "Enter Branch" : null,
                     controller: branch,
                   ),
                   const SizedBox(height: 20.0),
                   TextFormField(
                     style: const TextStyle(color: Colors.grey, fontSize: 20),
-                    decoration: textInputDecoration.copyWith(hintText: "Mobile No"),
-                    validator: (val) => val == null || val.isEmpty ? "Enter Mobile No" : null,
+                    decoration:
+                        textInputDecoration.copyWith(hintText: "Mobile No"),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? "Enter Mobile No" : null,
                     controller: mobileNo,
                   ),
                   const SizedBox(height: 40.0),
@@ -194,13 +209,10 @@ class _NewStudentState extends State<NewStudent> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          if(studentPic == null)
-                          {
-                            showSnackBar('Please Upload Image',context);
-                          }
-                          else
-                          {
-                            _submitForm() ;
+                          if (studentPic == null) {
+                            showSnackBar('Please Upload Image', context);
+                          } else {
+                            _submitForm();
                           }
                         }
                       },

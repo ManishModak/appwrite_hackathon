@@ -11,12 +11,11 @@ class OutStudent extends StatefulWidget {
 }
 
 class _OutStudentState extends State<OutStudent> {
+  late Orientation orientation;
 
-  late Orientation orientation ;
+  late double width;
 
-  late double width ;
-
-  final LogDatabase _log = LogDatabase() ;
+  final LogDatabase _log = LogDatabase();
 
   @override
   void initState() {
@@ -25,10 +24,9 @@ class _OutStudentState extends State<OutStudent> {
 
   @override
   Widget build(BuildContext context) {
-
     orientation = MediaQuery.of(context).orientation;
 
-    width = MediaQuery. of(context). size. width ;
+    width = MediaQuery.of(context).size.width;
 
     return SafeArea(
       child: Scaffold(
@@ -49,8 +47,9 @@ class _OutStudentState extends State<OutStudent> {
         body: Padding(
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: FutureBuilder<List<Document>>(
-            future: _log.getNotReturned() ,
-            builder: (BuildContext context, AsyncSnapshot<List<Document>> snapshot) {
+            future: _log.getNotReturned(),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Document>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();
               }
@@ -78,27 +77,48 @@ class _OutStudentState extends State<OutStudent> {
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   child: DataTable(
-                    border: TableBorder.all(color: Colors.white), // Border color for cell borders
+                    border: TableBorder.all(
+                        color: Colors.white), // Border color for cell borders
                     columns: [
-                      DataColumn(label: Padding(
-                        padding: customPadding(orientation,width) ,
-                        child: Text('ID', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      DataColumn(
+                          label: Padding(
+                        padding: customPadding(orientation, width),
+                        child: Text('ID',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: customFontSize(orientation, width))),
                       )),
-                      DataColumn(label: Padding(
-                        padding: customPadding(orientation,width) ,
-                        child: Text('Name', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      DataColumn(
+                          label: Padding(
+                        padding: customPadding(orientation, width),
+                        child: Text('Name',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: customFontSize(orientation, width))),
                       )),
-                      DataColumn(label: Padding(
-                        padding: customPadding(orientation,width) ,
-                        child: Text('Room', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      DataColumn(
+                          label: Padding(
+                        padding: customPadding(orientation, width),
+                        child: Text('Room',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: customFontSize(orientation, width))),
                       )),
-                      DataColumn(label: Padding(
-                        padding: customPadding(orientation,width) ,
-                        child: Text('Out time', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      DataColumn(
+                          label: Padding(
+                        padding: customPadding(orientation, width),
+                        child: Text('Out time',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: customFontSize(orientation, width))),
                       )),
-                      DataColumn(label: Padding(
-                        padding: customPadding(orientation,width) ,
-                        child: Text('Mobile No', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      DataColumn(
+                          label: Padding(
+                        padding: customPadding(orientation, width),
+                        child: Text('Mobile No',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: customFontSize(orientation, width))),
                       )),
                     ],
 
@@ -107,20 +127,51 @@ class _OutStudentState extends State<OutStudent> {
 
                       var inTime = data['inTime'];
                       Color color = Colors.greenAccent;
-                      if(inTime == 'null'){
+                      if (inTime == 'null') {
                         inTime = '';
                         color = Colors.redAccent;
                       }
 
-                      var outTime = data['date'][6] + data['date'][7] + "/" + data['date'][4] + data['date'][5] + " " + data['outTime'];
+                      var outTime = data['date'][6] +
+                          data['date'][7] +
+                          "/" +
+                          data['date'][4] +
+                          data['date'][5] +
+                          " " +
+                          data['outTime'];
 
                       return DataRow(
                         cells: [
-                          DataCell(Center(child: Text(data['id'], style: TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
-                          DataCell(Center(child: Text(data['name'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
-                          DataCell(Center(child: Text(data['roomNo'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
-                          DataCell(Center(child: Text(outTime, style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
-                          DataCell(Center(child: Text(data['mobileNo'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
+                          DataCell(Center(
+                              child: Text(data['id'],
+                                  style: TextStyle(
+                                      color: color,
+                                      fontSize: customFontSize(
+                                          orientation, width))))),
+                          DataCell(Center(
+                              child: Text(data['name'],
+                                  style: TextStyle(
+                                      color: color,
+                                      fontSize: customFontSize(
+                                          orientation, width))))),
+                          DataCell(Center(
+                              child: Text(data['roomNo'],
+                                  style: TextStyle(
+                                      color: color,
+                                      fontSize: customFontSize(
+                                          orientation, width))))),
+                          DataCell(Center(
+                              child: Text(outTime,
+                                  style: TextStyle(
+                                      color: color,
+                                      fontSize: customFontSize(
+                                          orientation, width))))),
+                          DataCell(Center(
+                              child: Text(data['mobileNo'],
+                                  style: TextStyle(
+                                      color: color,
+                                      fontSize: customFontSize(
+                                          orientation, width))))),
                         ],
                       );
                     }).toList(),

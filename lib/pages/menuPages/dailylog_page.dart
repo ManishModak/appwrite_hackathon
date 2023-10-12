@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mat_security/common/constants.dart';
 import 'package:mat_security/services/log_database.dart';
 
-
 class DailyLog extends StatefulWidget {
   const DailyLog({Key? key}) : super(key: key);
 
@@ -12,12 +11,11 @@ class DailyLog extends StatefulWidget {
 }
 
 class _DailyLogState extends State<DailyLog> {
+  late double width;
 
-  late double width ;
+  late Orientation orientation;
 
-  late Orientation orientation ;
-
-  final LogDatabase _log = LogDatabase() ;
+  final LogDatabase _log = LogDatabase();
 
   @override
   void initState() {
@@ -26,8 +24,7 @@ class _DailyLogState extends State<DailyLog> {
 
   @override
   Widget build(BuildContext context) {
-
-    width = MediaQuery. of(context). size. width ;
+    width = MediaQuery.of(context).size.width;
 
     orientation = MediaQuery.of(context).orientation;
 
@@ -50,8 +47,9 @@ class _DailyLogState extends State<DailyLog> {
         body: Padding(
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: FutureBuilder<List<Document>>(
-            future: _log.getDocuments() ,
-            builder: (BuildContext context, AsyncSnapshot<List<Document>> snapshot) {
+            future: _log.getDocuments(),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Document>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();
               }
@@ -79,27 +77,48 @@ class _DailyLogState extends State<DailyLog> {
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   child: DataTable(
-                    border: TableBorder.all(color: Colors.white), // Border color for cell borders
+                    border: TableBorder.all(
+                        color: Colors.white), // Border color for cell borders
                     columns: [
-                      DataColumn(label: Padding(
-                        padding: customPadding(orientation,width) ,
-                        child: Text('ID', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      DataColumn(
+                          label: Padding(
+                        padding: customPadding(orientation, width),
+                        child: Text('ID',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: customFontSize(orientation, width))),
                       )),
-                      DataColumn(label: Padding(
-                        padding: customPadding(orientation,width) ,
-                        child: Text('Name', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      DataColumn(
+                          label: Padding(
+                        padding: customPadding(orientation, width),
+                        child: Text('Name',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: customFontSize(orientation, width))),
                       )),
-                      DataColumn(label: Padding(
-                        padding: customPadding(orientation,width) ,
-                        child: Text('Room', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      DataColumn(
+                          label: Padding(
+                        padding: customPadding(orientation, width),
+                        child: Text('Room',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: customFontSize(orientation, width))),
                       )),
-                      DataColumn(label: Padding(
-                        padding: customPadding(orientation,width) ,
-                        child: Text('Out time', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      DataColumn(
+                          label: Padding(
+                        padding: customPadding(orientation, width),
+                        child: Text('Out time',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: customFontSize(orientation, width))),
                       )),
-                      DataColumn(label: Padding(
-                        padding: customPadding(orientation,width) ,
-                        child: Text('In time', style : TextStyle(color: Colors.white,fontSize: customFontSize(orientation,width))),
+                      DataColumn(
+                          label: Padding(
+                        padding: customPadding(orientation, width),
+                        child: Text('In time',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: customFontSize(orientation, width))),
                       )),
                     ],
                     rows: documents.map((document) {
@@ -107,18 +126,43 @@ class _DailyLogState extends State<DailyLog> {
 
                       var inTime = data['inTime'];
                       Color color = Colors.greenAccent;
-                      if(inTime == 'null'){
+                      if (inTime == 'null') {
                         inTime = '';
                         color = Colors.redAccent;
                       }
 
                       return DataRow(
                         cells: [
-                          DataCell(Center(child: Text(data['id'], style: TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
-                          DataCell(Center(child: Text(data['name'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
-                          DataCell(Center(child: Text(data['roomNo'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
-                          DataCell(Center(child: Text(data['outTime'], style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
-                          DataCell(Center(child: Text(inTime, style:  TextStyle(color: color,fontSize: customFontSize(orientation,width))))),
+                          DataCell(Center(
+                              child: Text(data['id'],
+                                  style: TextStyle(
+                                      color: color,
+                                      fontSize: customFontSize(
+                                          orientation, width))))),
+                          DataCell(Center(
+                              child: Text(data['name'],
+                                  style: TextStyle(
+                                      color: color,
+                                      fontSize: customFontSize(
+                                          orientation, width))))),
+                          DataCell(Center(
+                              child: Text(data['roomNo'],
+                                  style: TextStyle(
+                                      color: color,
+                                      fontSize: customFontSize(
+                                          orientation, width))))),
+                          DataCell(Center(
+                              child: Text(data['outTime'],
+                                  style: TextStyle(
+                                      color: color,
+                                      fontSize: customFontSize(
+                                          orientation, width))))),
+                          DataCell(Center(
+                              child: Text(inTime,
+                                  style: TextStyle(
+                                      color: color,
+                                      fontSize: customFontSize(
+                                          orientation, width))))),
                         ],
                       );
                     }).toList(),

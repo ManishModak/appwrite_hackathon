@@ -1,4 +1,3 @@
-
 import 'dart:typed_data';
 import 'package:appwrite/appwrite.dart';
 import 'package:mat_security/services/main_database.dart';
@@ -13,8 +12,7 @@ class StudentInfo extends StatefulWidget {
 }
 
 class _StudentInfoState extends State<StudentInfo> {
-
-  TextEditingController searchText = TextEditingController() ;
+  TextEditingController searchText = TextEditingController();
 
   MainDatabase data = MainDatabase();
   String id = '';
@@ -24,7 +22,7 @@ class _StudentInfoState extends State<StudentInfo> {
   String mobile = '';
 
   Future<void> submitButton() async {
-    String value = searchText.text ;
+    String value = searchText.text;
     try {
       Map<String, dynamic> stuData = await data.getInfo(id: value);
 
@@ -34,11 +32,11 @@ class _StudentInfoState extends State<StudentInfo> {
         branch = stuData['branch'];
         room = stuData['roomNo'];
         mobile = stuData['mobileNo'];
-        searchText.clear() ;
+        searchText.clear();
       });
     } catch (e) {
       if (e is AppwriteException && e.type == 'document_not_found') {
-        showSnackBar('$value not found.',context);
+        showSnackBar('$value not found.', context);
         setState(() {
           searchText.clear();
         });
@@ -55,27 +53,22 @@ class _StudentInfoState extends State<StudentInfo> {
           child: Stack(
             children: [
               Container(
-                decoration: const BoxDecoration(
-                  gradient: appBarGradient
-                ),
+                decoration: const BoxDecoration(gradient: appBarGradient),
               ),
-              buildAppBar1("Student Info") ,
+              buildAppBar1("Student Info"),
             ],
           ),
         ),
         body: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.fromLTRB(10, 20, 10, 0) ,
+            padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
             child: Column(
               children: [
                 TextField(
                   controller: searchText,
                   decoration: textInputDecoration.copyWith(
-                      hintText: "Search",
-                      prefixIcon: const Icon(
-                          Icons.search_outlined,
-                          size: 30
-                      ),
+                    hintText: "Search",
+                    prefixIcon: const Icon(Icons.search_outlined, size: 30),
                   ),
                   style: const TextStyle(color: Colors.grey, fontSize: 20),
                 ),
@@ -85,77 +78,93 @@ class _StudentInfoState extends State<StudentInfo> {
                   height: 55,
                   decoration: BoxDecoration(
                       gradient: buttonLinearGradient_1,
-                      borderRadius: BorderRadius.circular(10)
-                  ),
+                      borderRadius: BorderRadius.circular(10)),
                   child: ElevatedButton(
                     onPressed: submitButton,
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        elevation: 0
-                    ),
-                    child:const Text(
+                        backgroundColor: Colors.transparent, elevation: 0),
+                    child: const Text(
                       "Submit",
                       style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
-                          letterSpacing: 1.5
-                      ),
+                          letterSpacing: 1.5),
                     ),
                   ),
                 ),
                 const SizedBox(height: 20.0),
                 const Row(
                   children: [
-                    Expanded(child: Divider(thickness: 1,color: Colors.redAccent,)),
-                    SizedBox(width: 10,),
-                    Text("Last Checked",style: TextStyle(fontSize: 15,color: Colors.white),),
-                    SizedBox(width: 10,),
-                    Expanded(child: Divider(thickness: 1,color: Colors.redAccent,))
+                    Expanded(
+                        child: Divider(
+                      thickness: 1,
+                      color: Colors.redAccent,
+                    )),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Last Checked",
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                        child: Divider(
+                      thickness: 1,
+                      color: Colors.redAccent,
+                    ))
                   ],
                 ),
                 const SizedBox(height: 20.0),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  gradient: buttonRadialGradient_1
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 12, 40, 12),
-                  child: Column(
-                    children: [
-                      FutureBuilder<Uint8List?>(
-                        future: data.getPic(id),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return const Text('Error loading image');
-                          } else if (snapshot.hasData && snapshot.data != null) {
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: CircleAvatar(
-                                radius: 60,
-                                backgroundImage: MemoryImage(snapshot.data!),
-                              ),
-                            );
-                          } else {
-                            return const Icon(Icons.account_circle_outlined,size: 130,color: Colors.black,);
-                          }
-                        },
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        name,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      gradient: buttonRadialGradient_1),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 12, 40, 12),
+                    child: Column(
+                      children: [
+                        FutureBuilder<Uint8List?>(
+                          future: data.getPic(id),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const CircularProgressIndicator();
+                            } else if (snapshot.hasError) {
+                              return const Text('Error loading image');
+                            } else if (snapshot.hasData &&
+                                snapshot.data != null) {
+                              return Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                child: CircleAvatar(
+                                  radius: 60,
+                                  backgroundImage: MemoryImage(snapshot.data!),
+                                ),
+                              );
+                            } else {
+                              return const Icon(
+                                Icons.account_circle_outlined,
+                                size: 130,
+                                color: Colors.black,
+                              );
+                            }
+                          },
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 10),
+                        Text(
+                          name,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
                 const SizedBox(height: 20.0),
                 Container(
                   height: 40,
@@ -169,16 +178,18 @@ class _StudentInfoState extends State<StudentInfo> {
                 Row(
                   children: [
                     Expanded(
-                        child: Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[850],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: customCard('Branch: $branch', context),
+                      child: Container(
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[850],
+                          borderRadius: BorderRadius.circular(10),
                         ),
+                        child: customCard('Branch: $branch', context),
+                      ),
                     ),
-                    const SizedBox(width: 15,),
+                    const SizedBox(
+                      width: 15,
+                    ),
                     Expanded(
                       child: Container(
                         height: 40,

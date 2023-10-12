@@ -10,26 +10,21 @@ class ManualEntry extends StatefulWidget {
 }
 
 class _ManualEntryState extends State<ManualEntry> {
-
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   final TextEditingController id = TextEditingController();
 
   String messageShowed = '';
 
-  late Orientation orientation ;
+  late Orientation orientation;
 
-  late double width ;
+  late double width;
 
-  double customWidthDrawer(Orientation orientation,double width)
-  {
-    if(orientation == Orientation.landscape)
-    {
-      return width - 100 ;
-    }
-    else
-    {
-      return width - 75 ;
+  double customWidthDrawer(Orientation orientation, double width) {
+    if (orientation == Orientation.landscape) {
+      return width - 100;
+    } else {
+      return width - 75;
     }
   }
 
@@ -38,24 +33,22 @@ class _ManualEntryState extends State<ManualEntry> {
     return validIdRegex.hasMatch(id);
   }
 
-  Future<void> logStudent(String id) async{
-
+  Future<void> logStudent(String id) async {
     if (!_isValidId(id)) {
-      showSnackBar('Invalid ID',context);
+      showSnackBar('Invalid ID', context);
       return;
     }
 
     LogDatabase log = LogDatabase();
-    String operationPerformed = await log.addLog(id: id) ;
+    String operationPerformed = await log.addLog(id: id);
 
     setState(() {
-      messageShowed = operationPerformed ;
+      messageShowed = operationPerformed;
     });
   }
 
   void submitButton() async {
     if (formkey.currentState!.validate()) {
-
       logStudent(id.text);
 
       setState(() {
@@ -72,8 +65,7 @@ class _ManualEntryState extends State<ManualEntry> {
 
   @override
   Widget build(BuildContext context) {
-
-    width = MediaQuery. of(context).size.width ;
+    width = MediaQuery.of(context).size.width;
 
     orientation = MediaQuery.of(context).orientation;
 
@@ -84,33 +76,26 @@ class _ManualEntryState extends State<ManualEntry> {
           child: Stack(
             children: [
               Container(
-                decoration: const BoxDecoration(
-                    gradient: appBarGradient
-                ),
+                decoration: const BoxDecoration(gradient: appBarGradient),
               ),
               buildAppBar1("Manual Entry"),
             ],
           ),
         ),
         drawer: Drawer(
-          width: customWidthDrawer(orientation,width),
+          width: customWidthDrawer(orientation, width),
           backgroundColor: Colors.black,
           child: ListView(
             children: [
               Container(
                 height: 100,
-                decoration: const BoxDecoration(
-                  gradient: appBarGradient
-                ),
+                decoration: const BoxDecoration(gradient: appBarGradient),
                 child: const Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Text(
                     'Menu',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      letterSpacing: 1.25
-                    ),
+                        color: Colors.white, fontSize: 24, letterSpacing: 1.25),
                   ),
                 ),
               ),
@@ -135,7 +120,7 @@ class _ManualEntryState extends State<ManualEntry> {
                         child: Container(
                           height: 50,
                           decoration: boxDecoration(),
-                          child: menuCard("New Student","newStudent",context),
+                          child: menuCard("New Student", "newStudent", context),
                         ),
                       ),
                     ],
@@ -147,7 +132,7 @@ class _ManualEntryState extends State<ManualEntry> {
                         child: Container(
                           height: 50,
                           decoration: boxDecoration(),
-                          child: menuCard("Student Info","info",context),
+                          child: menuCard("Student Info", "info", context),
                         ),
                       ),
                     ],
@@ -159,7 +144,7 @@ class _ManualEntryState extends State<ManualEntry> {
                         child: Container(
                           height: 50,
                           decoration: boxDecoration(),
-                          child: menuCard("Daily Log","log",context),
+                          child: menuCard("Daily Log", "log", context),
                         ),
                       ),
                     ],
@@ -171,7 +156,7 @@ class _ManualEntryState extends State<ManualEntry> {
                         child: Container(
                           height: 50,
                           decoration: boxDecoration(),
-                          child: menuCard("Not returned","OutStud",context),
+                          child: menuCard("Not returned", "OutStud", context),
                         ),
                       ),
                     ],
@@ -191,42 +176,39 @@ class _ManualEntryState extends State<ManualEntry> {
                 Container(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: TextFormField(
-                    style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20
-                    ),
-                    decoration: textInputDecoration.copyWith(hintText: "Student ID"),
-                    validator: (val) => val == null || val.isEmpty ? "Enter ID" : null,
+                    style: const TextStyle(color: Colors.grey, fontSize: 20),
+                    decoration:
+                        textInputDecoration.copyWith(hintText: "Student ID"),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? "Enter ID" : null,
                     controller: id,
                   ),
                 ),
-                const SizedBox(height:20.0),
+                const SizedBox(height: 20.0),
                 Text(
-                  messageShowed ,
+                  messageShowed,
                   style: const TextStyle(color: Colors.red, fontSize: 16.0),
                 ),
-                const SizedBox(height:20.0),
+                const SizedBox(height: 20.0),
                 Container(
                   width: 180,
                   height: 55,
                   decoration: BoxDecoration(
                       gradient: buttonLinearGradient_1,
-                      borderRadius: BorderRadius.circular(12)
-                  ),
+                      borderRadius: BorderRadius.circular(12)),
                   child: ElevatedButton(
                     onPressed: submitButton,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       elevation: 0,
                     ),
-                    child:const Text(
+                    child: const Text(
                       "Submit",
                       style: TextStyle(
                           fontSize: 23,
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
-                          letterSpacing: 1.5
-                      ),
+                          letterSpacing: 1.5),
                     ),
                   ),
                 ),
